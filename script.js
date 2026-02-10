@@ -195,18 +195,23 @@
   }
 
   /* ===== CTA & INTERNAL LINK HANDLING ===== */
-  // Handle all internal anchor links (CTAs like "Book a free discovery call")
+  // Handle clicks on package cards and other deep links (e.g. #services/health-check)
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href^="#"]');
     if (!link) return;
 
-    var hash = link.getAttribute('href');
-    if (hash && hash.length > 1) {
-      var page = hash.replace('#', '');
-      if (pages.includes(page)) {
-        // Let the hashchange handler do the work
-        return;
-      }
+    var hash = link.getAttribute('href').replace('#', '');
+    if (!hash) return;
+
+    var parts = hash.split('/');
+    var page = parts[0];
+    var anchor = parts[1] || null;
+
+    if (pages.includes(page)) {
+      e.preventDefault();
+      var scrollTo = anchor && scrollTargets[anchor] ? scrollTargets[anchor] : null;
+      window.location.hash = hash;
+      navigateTo(page, scrollTo);
     }
   });
 
