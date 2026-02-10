@@ -649,6 +649,37 @@ ul { list-style: none; }
   margin-bottom: 4px;
 }
 
+.service-card__cta {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--colour-border);
+}
+
+.service-card__cta-note {
+  font-size: 0.85rem;
+  color: var(--colour-text-muted);
+  margin-top: 12px;
+}
+
+/* Secondary button */
+.btn--secondary {
+  background: transparent;
+  color: var(--colour-primary);
+  border: 2px solid var(--colour-primary);
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  margin-top: 16px;
+}
+.btn--secondary:hover {
+  background: var(--colour-primary);
+  color: #fff;
+}
+
+.btn--sm {
+  padding: 8px 20px;
+  font-size: 0.85rem;
+}
+
 /* ===== FAQ ===== */
 .faq {
   max-width: var(--container-narrow);
