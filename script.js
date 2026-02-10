@@ -4,7 +4,14 @@
 
   const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact'];
 
-  function navigateTo(page) {
+  var scrollTargets = {
+    'health-check': 'pkg-health-check',
+    'stabilisation': 'pkg-stabilisation',
+    'coe': 'pkg-coe',
+    'fractional': 'pkg-fractional'
+  };
+
+  function navigateTo(page, scrollTo) {
     if (!pages.includes(page)) page = 'home';
 
     // Hide all pages, show target
@@ -22,8 +29,19 @@
       }
     });
 
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Scroll to specific element or top
+    if (scrollTo) {
+      var el = document.getElementById(scrollTo);
+      if (el) {
+        setTimeout(function () {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
 
     // Close mobile menu
     closeMobileMenu();
@@ -31,15 +49,24 @@
 
   function getPageFromHash() {
     var hash = window.location.hash.replace('#', '');
-    return hash || 'home';
+    if (!hash) return { page: 'home', scrollTo: null };
+
+    var parts = hash.split('/');
+    var page = parts[0] || 'home';
+    var anchor = parts[1] || null;
+    var scrollTo = anchor && scrollTargets[anchor] ? scrollTargets[anchor] : null;
+
+    return { page: page, scrollTo: scrollTo };
   }
 
   window.addEventListener('hashchange', function () {
-    navigateTo(getPageFromHash());
+    var route = getPageFromHash();
+    navigateTo(route.page, route.scrollTo);
   });
 
   // Initial load
-  navigateTo(getPageFromHash());
+  var initialRoute = getPageFromHash();
+  navigateTo(initialRoute.page, initialRoute.scrollTo);
 
   /* ===== MOBILE MENU ===== */
   var hamburger = document.getElementById('hamburger');
