@@ -615,7 +615,7 @@
               <span class="badge badge--category">Governance</span>
               <h3 class="article-card__title">Writing Power BI Best Practices That People Will Actually Follow</h3>
               <p class="article-card__desc">Guidelines only work if they're clear, relevant, and not buried in a SharePoint folder nobody visits.</p>
-              <a href="#" class="link--arrow">Read more &rarr;</a>
+              <a href="#article-best-practices" class="link--arrow">Read more &rarr;</a>
             </article>
 
             <article class="article-card">
@@ -1153,6 +1153,182 @@ CALCULATE (
               <li>Write DAX that explains itself</li>
             </ul>
             <p>When your measures are readable, predictable, and performant, you reduce defects, speed up onboarding, and turn your semantic model into something the business can actually rely on.</p>
+
+          </div>
+
+          <div class="article-footer">
+            <a href="#resources" class="link--arrow">&larr; Back to all resources</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PAGE: ARTICLE — BEST PRACTICES ==================== -->
+    <div class="page" id="page-article-best-practices">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <a href="#resources" class="article-back">&larr; Back to Resources</a>
+          <span class="badge badge--category">Governance</span>
+          <h1 class="page-header__title">Writing Power BI Best Practices That People Will Actually Follow</h1>
+          <p class="page-header__intro">Guidelines only work if they're clear, relevant, and easy to use. If your Power BI best practices live in a long PDF or a forgotten SharePoint folder, they effectively don't exist.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+          <div class="article-body">
+
+            <p>This article is about how to write Power BI best practices that professionals will actually follow &mdash; grounded in Microsoft Power BI guidance, but shaped by real-world delivery in enterprise and shared-reporting environments.</p>
+            <div class="article-tip">
+              <strong>Note:</strong> These guidelines are primarily intended for shared datasets and reports that are reused, extended, or handed over between developers. Purely personal or exploratory reports may not require the same level of rigor.
+            </div>
+
+            <h2>Why Most Power BI Best Practices Fail</h2>
+            <p>Most best practices don't fail because they're wrong. They fail because they're unusable.</p>
+            <p>Common problems include:</p>
+            <ul>
+              <li>Rules that are too abstract ("Use good naming conventions")</li>
+              <li>Documents that are too long to reference while working</li>
+              <li>Generic guidance copied directly from documentation</li>
+              <li>Assumptions of ideal, greenfield projects that don't exist in reality</li>
+            </ul>
+            <p>Power BI professionals work under time pressure, with evolving requirements and imperfect data. If a rule doesn't help them make a decision while building, it gets ignored.</p>
+            <p>Effective best practices are:</p>
+            <ul>
+              <li>Specific</li>
+              <li>Actionable</li>
+              <li>Easy to check in under a minute</li>
+            </ul>
+
+            <h2>Start From How Power BI Is Actually Used</h2>
+            <p>Microsoft's Power BI guidance assumes a few realities that are worth embracing:</p>
+            <ul>
+              <li>Models grow over time</li>
+              <li>Multiple developers touch the same dataset</li>
+              <li>Performance problems often appear after adoption</li>
+              <li>Business users rarely read documentation</li>
+            </ul>
+            <p>Best practices should be written for living models, not theoretical ones. That means accounting for refactoring, handovers, and long-term support &mdash; not just first delivery.</p>
+            <div class="article-tip">
+              <strong>Key insight:</strong> When guidance reflects real usage patterns, it feels helpful instead of academic.
+            </div>
+
+            <h2>Structure Best Practices Around Real Decisions</h2>
+            <p>Developers don't think in categories like Modeling or Visualization. They think in questions:</p>
+            <ul>
+              <li>"Should this be a calculated column or a measure?"</li>
+              <li>"Do I need a new table, or can I reuse an existing one?"</li>
+              <li>"Is this DAX readable enough for someone else to maintain?"</li>
+            </ul>
+            <p>Best practices should be structured to answer those questions directly.</p>
+            <h3>Avoid this</h3>
+            <p><em>Keep DAX simple.</em></p>
+            <h3>Prefer this</h3>
+            <p><em>If a measure contains multiple business rules, use variables and helper measures to improve readability, testing, and long-term maintenance.</em></p>
+            <p>The intent is the same &mdash; but the second version is something a developer can act on immediately.</p>
+
+            <h2>Focus on the 20% That Causes 80% of Problems</h2>
+            <p>Microsoft documentation is comprehensive. Your internal best practices shouldn't be.</p>
+            <p>Prioritize guidance that consistently causes issues in real projects:</p>
+            <ul>
+              <li>Poor data modeling</li>
+              <li>Hard-to-maintain DAX</li>
+              <li>Inconsistent naming and formatting</li>
+              <li>Performance degradation at scale</li>
+              <li>Loss of trust in reported numbers</li>
+            </ul>
+            <p>For most Power BI teams, that usually means emphasizing:</p>
+            <ul>
+              <li>Star schema modeling</li>
+              <li>Measure-driven calculations</li>
+              <li>Avoiding unnecessary calculated columns</li>
+              <li>Consistent naming and formatting conventions</li>
+              <li>Careful use of bi-directional relationships</li>
+            </ul>
+            <div class="article-tip">
+              <strong>Practical reality:</strong> If a rule hasn't caused real pain in your environment, it probably doesn't belong in version 1.
+            </div>
+
+            <h2>Be Precise About Measures vs Calculated Columns</h2>
+            <p>A common source of confusion is when to use calculated columns versus measures.</p>
+            <p>A practical guideline looks like this:</p>
+            <ul>
+              <li>Prefer measures for aggregations and calculations evaluated at query time</li>
+              <li>Avoid calculated columns on large fact tables where possible, as they increase model size and refresh cost</li>
+              <li>Use calculated columns when values must be evaluated at refresh time, used in relationships, or exposed as slicers</li>
+            </ul>
+            <p>This avoids dogma while aligning with how Power BI's engine actually works.</p>
+
+            <h2>Make Performance Guidance Concrete &mdash; and Contextual</h2>
+            <p>Performance advice is often ignored because it's vague or applied too early.</p>
+            <h3>Instead of</h3>
+            <p><em>Optimize your model for performance.</em></p>
+            <h3>Be explicit and situational</h3>
+            <ul>
+              <li>Disable Auto Date/Time in shared or enterprise datasets</li>
+              <li>Reduce column cardinality where possible</li>
+              <li>Hide unused columns from the report view</li>
+              <li>Avoid bi-directional relationships unless there is a clear requirement</li>
+              <li>Validate performance using Performance Analyzer before publishing</li>
+            </ul>
+            <div class="article-tip">
+              <strong>Balance is key:</strong> Avoid premature optimization. Focus performance effort on datasets that are shared or heavily used. Optimize in response to real usage patterns, not theoretical concerns.
+            </div>
+
+            <h2>Treat Naming and Formatting as First-Class Practices</h2>
+            <p>"Be consistent" isn't enough.</p>
+            <p>Good best practices provide examples, even if the exact standard varies by team.</p>
+            <p>For example:</p>
+            <ul>
+              <li>Use business-friendly names with spaces (not underscores)</li>
+              <li>Avoid abbreviations unless they are widely understood by the business</li>
+              <li>Keep measure names free of table prefixes</li>
+              <li>Apply consistent number formatting at the model level</li>
+            </ul>
+            <p>Clarity here improves usability, reduces confusion, and builds trust with report consumers.</p>
+
+            <h2>Write for the Author, Not the Auditor</h2>
+            <p>Best practices are rarely enforced by formal reviews. They're followed &mdash; or ignored &mdash; while someone is building a model.</p>
+            <p>That means they should be:</p>
+            <ul>
+              <li>Skimmable</li>
+              <li>Short</li>
+              <li>Written in plain language</li>
+              <li>Easy to reference during development</li>
+            </ul>
+            <p>If a developer can't quickly confirm a rule while writing DAX or modeling data, the rule won't be used.</p>
+
+            <h2>Accept Constraints and Trade-Offs</h2>
+            <p>Not every best practice can be applied in every situation.</p>
+            <p>Legacy data sources, organizational constraints, tight deadlines, and governance rules all force compromises. Good guidelines acknowledge this instead of pretending it doesn't happen.</p>
+            <p>The goal isn't theoretical perfection. It's consistency, transparency, and maintainability.</p>
+
+            <h2>Keep Best Practices Alive</h2>
+            <p>Power BI evolves constantly. So should your guidance.</p>
+            <p>To keep best practices relevant:</p>
+            <ul>
+              <li>Review them periodically</li>
+              <li>Update them after major platform changes</li>
+              <li>Adjust them based on real incidents and lessons learned</li>
+            </ul>
+            <p>And make them easy to find:</p>
+            <ul>
+              <li>A short internal wiki page</li>
+              <li>A README alongside shared datasets</li>
+              <li>A pinned Teams or Slack post</li>
+            </ul>
+            <div class="article-tip">
+              <strong>Remember:</strong> If they're hidden, they don't exist.
+            </div>
+
+            <h2>The Real Goal</h2>
+            <p>The purpose of Power BI best practices isn't to create flawless models.</p>
+            <p>It's to create predictable, understandable, and maintainable ones.</p>
+            <p>If your guidelines help someone make a better decision while building, they'll be followed.</p>
+            <p>If they can be checked quickly and explained easily, they'll last.</p>
+            <p>That's when best practices stop being rules &mdash; and start becoming shortcuts.</p>
 
           </div>
 
