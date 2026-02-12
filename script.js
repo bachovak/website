@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact', 'article-dax-functions'];
+  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact', 'article-coe-setup', 'article-dax-functions'];
 
   var scrollTargets = {
     'health-check': 'pkg-health-check',

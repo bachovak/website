@@ -594,7 +594,7 @@
               <span class="badge badge--category">CoE</span>
               <h3 class="article-card__title">How to Set Up a Power BI Centre of Excellence — Step by Step</h3>
               <p class="article-card__desc">A practical guide to building a CoE that lasts — from getting executive buy-in to writing governance guidelines that people actually follow.</p>
-              <a href="#" class="link--arrow">Read more &rarr;</a>
+              <a href="#article-coe-setup" class="link--arrow">Read more &rarr;</a>
             </article>
 
             <article class="article-card">
@@ -636,6 +636,186 @@
             <h3 class="callout__heading">Free Download: Power BI CoE Starter Checklist</h3>
             <p>Not sure where to start with a CoE? Download this checklist — it covers the 12 things you need to decide before you build anything.</p>
             <a href="mailto:kristina@example.com?subject=CoE%20Starter%20Checklist" class="btn btn--primary">Download the checklist</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PAGE: ARTICLE — COE SETUP ==================== -->
+    <div class="page" id="page-article-coe-setup">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <a href="#resources" class="article-back">&larr; Back to Resources</a>
+          <span class="badge badge--category">CoE</span>
+          <h1 class="page-header__title">How to Set Up a Power BI Centre of Excellence (CoE) &mdash; Step by Step</h1>
+          <p class="page-header__intro">A practical guide to building a CoE that lasts, based on Microsoft Power BI best practices.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+          <div class="article-body">
+
+            <p>A Power BI Centre of Excellence (CoE) is not a reporting factory, and it's not a governance police force. At its best, it's a small, focused capability that enables scale: trusted data, consistent standards, and empowered report creators.</p>
+            <p>This guide outlines a pragmatic, experience-based approach to building a Power BI CoE that works in real organisations &mdash; aligned with Microsoft Power BI best practices, without unnecessary theory.</p>
+
+            <h2>Step 1: Define the Purpose and Operating Model</h2>
+            <p>Before defining tools, roles, or standards, be clear about <strong>why</strong> the CoE exists.</p>
+            <p>Most successful Power BI CoEs focus on:</p>
+            <ul>
+              <li>Improving trust in data and metrics</li>
+              <li>Reducing duplication and rework</li>
+              <li>Enabling self-service analytics safely</li>
+              <li>Allowing Power BI usage to scale without chaos</li>
+            </ul>
+            <p>Just as important is clarity on what the CoE is <strong>not</strong>:</p>
+            <ul>
+              <li>Not the only team allowed to build reports</li>
+              <li>Not a mandatory gate for every dashboard</li>
+            </ul>
+            <h3>Define how the CoE engages</h3>
+            <p>Many CoEs struggle because their engagement model is never explicit. Decide early:</p>
+            <ul>
+              <li>When the CoE advises vs approves vs owns assets</li>
+              <li>Whether shared datasets are owned centrally or by domains</li>
+              <li>How decisions are escalated when standards are challenged</li>
+            </ul>
+            <div class="article-tip">
+              <strong>In practice:</strong> Most mature environments land on a federated model: domain teams own their data products, while the CoE owns standards, certification, and cross-domain alignment.
+            </div>
+            <p>If you can't describe the CoE's purpose and operating model in two sentences, it isn't ready to launch.</p>
+
+            <h2>Step 2: Secure Executive Sponsorship (With the Right Framing)</h2>
+            <p>Active executive sponsorship is a strong predictor of CoE success. Without it, standards quickly become optional.</p>
+            <p><strong>What typically resonates with leaders:</strong></p>
+            <ul>
+              <li>Reduced risk (data security, compliance, auditability)</li>
+              <li>Faster, more confident decision-making</li>
+              <li>Lower long-term cost through reuse and standardisation</li>
+            </ul>
+            <p><strong>What rarely resonates:</strong></p>
+            <ul>
+              <li>Dataset design patterns</li>
+              <li>Workspace naming conventions</li>
+            </ul>
+            <p>Be explicit about what you're asking for:</p>
+            <ul>
+              <li>Visible sponsorship, not just initial approval</li>
+              <li>Clear decision rights for standards and exceptions</li>
+              <li>Time allocation for CoE members</li>
+            </ul>
+            <div class="article-tip">
+              <strong>In practice:</strong> CoEs without sustained executive backing rarely survive beyond their initial rollout.
+            </div>
+
+            <h2>Step 3: Start Small With the Right Roles (Not a Big Team)</h2>
+            <p>You don't need a large team to start a CoE. Most effective CoEs begin with 3&ndash;6 people, often part-time, covering these roles:</p>
+            <ul>
+              <li><strong>CoE Lead / Product Owner</strong> &mdash; prioritisation, stakeholder alignment</li>
+              <li><strong>Power BI Architect</strong> &mdash; semantic models, performance, scalability</li>
+              <li><strong>Platform or Tenant Admin</strong> &mdash; tenant settings, security, deployments</li>
+              <li><strong>Enablement Lead</strong> &mdash; training, documentation, community building</li>
+            </ul>
+            <p>These are <strong>roles</strong>, not job titles. Over-staffing early often leads to over-engineering. Scale the team only once demand is proven.</p>
+
+            <h2>Step 4: Establish Governance People Will Actually Follow</h2>
+            <p>Governance fails when it's either too abstract or too restrictive. Anchor it in everyday Power BI work and make expectations clear.</p>
+
+            <h3>Workspace strategy</h3>
+            <p>Define a small number of workspace types with clear intent, for example:</p>
+            <ul>
+              <li><strong>Personal / Sandbox</strong> &mdash; experimentation and learning</li>
+              <li><strong>Team / Department</strong> &mdash; collaborative delivery</li>
+              <li><strong>Certified / Endorsed</strong> &mdash; trusted, reusable content</li>
+            </ul>
+            <p>Tie permissions, review expectations, and support levels to each type.</p>
+
+            <h3>Dataset and model standards</h3>
+            <p>Keep standards practical and enforceable:</p>
+            <ul>
+              <li>Clear naming conventions for measures</li>
+              <li>Required descriptions for shared or certified models</li>
+              <li>Performance expectations for reusable datasets</li>
+            </ul>
+            <div class="article-tip">
+              <strong>In practice:</strong> The CoE should not own every semantic model. Domain teams own their datasets; the CoE defines standards and certifies models that are safe for reuse.
+            </div>
+            <p>A simple certification checklist often works better than long documentation. For example:</p>
+            <ul>
+              <li>Refresh succeeds consistently</li>
+              <li>Measures are documented</li>
+              <li>Query performance meets agreed thresholds</li>
+              <li>Security has been reviewed</li>
+              <li>A named business owner exists</li>
+            </ul>
+
+            <h3>Change and release management</h3>
+            <p>Not every change requires heavy process:</p>
+            <ul>
+              <li>Use Dev/Test/Prod for shared datasets</li>
+              <li>Apply lightweight peer review for certified assets</li>
+              <li>Define rollback expectations</li>
+            </ul>
+            <p>Equally important is <strong>change communication</strong>. Define how breaking changes are announced, how long deprecations last, and where consumers can see what changed. Technical controls alone don't protect trust.</p>
+
+            <h2>Step 5: Configure the Power BI Tenant Intentionally</h2>
+            <p>The Power BI Admin Portal is where governance becomes enforceable.</p>
+            <p>Align tenant settings with your organisation's maturity:</p>
+            <ul>
+              <li>Be cautious with external sharing and publish-to-web early</li>
+              <li>Control who can use premium features and create shared assets</li>
+              <li>Enable audit logs and usage metrics from day one</li>
+            </ul>
+            <div class="article-tip">
+              <strong>In practice:</strong> Hard restrictions can backfire. Blocking workspace creation or exports often leads to shadow IT. Where restrictions create friction, prefer guardrails, monitoring, and education over blanket bans.
+            </div>
+            <p>Always document <strong>why</strong> each tenant setting exists. This prevents policy drift and helps future admins make informed changes.</p>
+
+            <h2>Step 6: Enable Self-Service Instead of Fighting It</h2>
+            <p>Self-service analytics will happen whether you plan for it or not. The CoE's role is to make the right way the easy way.</p>
+            <p>Effective enablement typically includes:</p>
+            <ul>
+              <li>Shared, well-designed semantic models</li>
+              <li>Report templates with branding and layout guidance</li>
+              <li>Short, task-focused training sessions</li>
+            </ul>
+            <p>Community scales better than ticket queues. Internal user groups, office hours, Teams channels, and showcase sessions often deliver more value than formal support processes.</p>
+
+            <h2>Step 7: Measure, Prove Value, and Evolve</h2>
+            <p>A CoE should be treated as a product, not a one-time project.</p>
+            <p>Track platform metrics such as:</p>
+            <ul>
+              <li>Active users and creators</li>
+              <li>Reuse of shared and certified datasets</li>
+              <li>Support requests and performance issues</li>
+            </ul>
+            <p>Over time, link these to business outcomes:</p>
+            <ul>
+              <li>Fewer duplicate reports</li>
+              <li>Faster delivery of new insights</li>
+              <li>Reduced dependency on central teams for ad-hoc requests</li>
+            </ul>
+            <p>As maturity increases, successful CoEs typically loosen controls, shifting from enforcement to enablement.</p>
+
+            <h2>Common CoE Failure Modes</h2>
+            <ul>
+              <li><strong>Lack of clear ownership</strong> &mdash; No one knows who owns shared datasets, standards, or decisions, leading to slow progress and conflict.</li>
+              <li><strong>Over-governance too early</strong> &mdash; Heavy approval processes and restrictive tenant settings drive users to work around the platform.</li>
+              <li><strong>CoE as a delivery factory</strong> &mdash; The CoE becomes the default report-building team, creating bottlenecks and burnout.</li>
+              <li><strong>Ignoring change management</strong> &mdash; Breaking changes land without warning, eroding trust in shared datasets.</li>
+              <li><strong>No success metrics</strong> &mdash; Without measurable outcomes, the CoE is eventually seen as overhead rather than value.</li>
+            </ul>
+
+            <h2>Final Thought</h2>
+            <p>The most durable Power BI Centres of Excellence succeed because people <strong>want</strong> to follow the standards &mdash; not because they're forced to.</p>
+            <p>Start small, stay pragmatic, and optimise for trust over control. Perfect governance is rarely achievable; consistent, trusted insight at scale is.</p>
+
+          </div>
+
+          <div class="article-footer">
+            <a href="#resources" class="link--arrow">&larr; Back to all resources</a>
           </div>
         </div>
       </section>
