@@ -1065,10 +1065,12 @@ ul { list-style: none; }
 
 .article-body pre {
   position: relative;
-  background: var(--colour-dark);
-  color: rgba(255,255,255,0.9);
+  background: #F0EDEB;
+  color: var(--colour-dark);
+  border: 1px solid var(--colour-border);
   border-radius: var(--radius);
   padding: 24px;
+  padding-right: 80px;
   margin-bottom: 20px;
   overflow-x: auto;
   font-size: 0.9rem;
@@ -1079,10 +1081,10 @@ ul { list-style: none; }
   position: absolute;
   top: 8px;
   right: 8px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: var(--colour-card);
+  border: 1px solid var(--colour-border);
   border-radius: 6px;
-  color: rgba(255,255,255,0.5);
+  color: var(--colour-text-muted);
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 500;
@@ -1095,8 +1097,9 @@ ul { list-style: none; }
 }
 
 .code-copy:hover {
-  background: rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.85);
+  background: var(--colour-primary);
+  border-color: var(--colour-primary);
+  color: #fff;
 }
 
 .code-copy--copied {
