@@ -601,7 +601,7 @@
               <span class="badge badge--category">Governance</span>
               <h3 class="article-card__title">Power BI vs Microsoft Fabric — What Actually Changed?</h3>
               <p class="article-card__desc">Dataflows, capacity, OneLake — here's what's real, what's hype, and what it means for your Power BI setup right now.</p>
-              <a href="#" class="link--arrow">Read more &rarr;</a>
+              <a href="#article-fabric" class="link--arrow">Read more &rarr;</a>
             </article>
 
             <article class="article-card">
@@ -636,6 +636,208 @@
             <h3 class="callout__heading">Free Download: Power BI CoE Starter Checklist</h3>
             <p>Not sure where to start with a CoE? Download this checklist — it covers the 12 things you need to decide before you build anything.</p>
             <a href="mailto:kristina@example.com?subject=CoE%20Starter%20Checklist" class="btn btn--primary">Download the checklist</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PAGE: ARTICLE — FABRIC ==================== -->
+    <div class="page" id="page-article-fabric">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <a href="#resources" class="article-back">&larr; Back to Resources</a>
+          <span class="badge badge--category">Governance</span>
+          <h1 class="page-header__title">Power BI vs Microsoft Fabric &mdash; What Actually Changed?</h1>
+          <p class="page-header__intro">Dataflows, capacity, OneLake &mdash; what's real, what's hype, and what it means for your Power BI setup right now.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+          <div class="article-body">
+
+            <p>If you work with Microsoft Power BI, you've almost certainly heard this question over the past year:</p>
+            <p><em>"Do we still use Power BI, or are we supposed to move to Microsoft Fabric now?"</em></p>
+            <p>The short answer is straightforward: <strong>Power BI didn't go away. Fabric didn't replace it.</strong> But the context Power BI operates in has changed &mdash; and that matters for architecture, governance, and capacity planning.</p>
+            <p>This article breaks down what actually changed, what's mostly marketing, and how Power BI professionals should think about Fabric in practice today.</p>
+
+            <h2>Power BI vs Fabric: The Correct Mental Model</h2>
+            <p>Before Fabric, Microsoft analytics was a collection of loosely connected services:</p>
+            <ul>
+              <li>Power BI</li>
+              <li>Azure Data Factory</li>
+              <li>Synapse</li>
+              <li>Dataflows</li>
+              <li>Separate storage layers</li>
+            </ul>
+            <p>Fabric's goal is <strong>consolidation</strong>:</p>
+            <ul>
+              <li>One platform</li>
+              <li>One storage layer</li>
+              <li>One capacity model</li>
+            </ul>
+            <p>Power BI is now one workload inside Fabric, not a separate product line.</p>
+            <div class="article-tip">
+              Think of Fabric as the house, and Power BI as one very important room inside it. Power BI remains the primary interface for business users &mdash; and the primary place where business logic is enforced.
+            </div>
+
+            <h2>What Actually Changed (And Matters)</h2>
+
+            <h3>1. OneLake Is Real &mdash; and It's the Biggest Shift</h3>
+            <p>Fabric introduces OneLake, a single, tenant-wide data lake shared across Fabric workloads.</p>
+            <p><strong>Why this matters in practice:</strong></p>
+            <ul>
+              <li>Data no longer has to be copied between tools</li>
+              <li>Multiple teams can access the same underlying data</li>
+              <li>Storage and compute are more clearly separated</li>
+            </ul>
+            <p><strong>Best-practice implications for Power BI:</strong></p>
+            <ul>
+              <li>Treat OneLake as a centralized data foundation, not a dumping ground</li>
+              <li>Keep transformation ownership clear (engineering vs BI)</li>
+              <li>Use Power BI semantic models to consume and shape data, not to store it redundantly</li>
+            </ul>
+            <p>This reinforces a long-standing Power BI principle: <strong>centralize data, standardize logic, decentralize reporting.</strong></p>
+            <div class="article-tip">
+              <strong>Reality check:</strong> OneLake does not magically solve governance, data quality, or ownership. Without discipline, it can just as easily become a larger &mdash; and more expensive &mdash; data swamp.
+            </div>
+
+            <h3>2. Dataflows Didn't Disappear &mdash; They Evolved (Carefully)</h3>
+            <p>Power BI Dataflows still exist. Fabric adds Dataflows Gen2, which:</p>
+            <ul>
+              <li>Write directly to OneLake</li>
+              <li>Can be reused by non&ndash;Power BI workloads</li>
+              <li>Still use Power Query under the hood</li>
+            </ul>
+            <p><strong>What didn't change:</strong></p>
+            <ul>
+              <li>They're best suited for light to moderate transformations</li>
+              <li>They're not a replacement for full-scale data engineering pipelines</li>
+              <li>They require careful performance and dependency management</li>
+            </ul>
+            <p><strong>Practical guidance:</strong></p>
+            <ul>
+              <li>Use Dataflows for reusable, business-owned transformations</li>
+              <li>Avoid pushing heavy joins, large-scale fact processing, or complex orchestration into them</li>
+              <li>Keep Gen1 dataflows if they're stable and meeting business needs</li>
+            </ul>
+            <div class="article-tip">
+              <strong>Important:</strong> If your Gen1 dataflows are working well, there is no immediate business value in migrating just because Gen2 exists. Migration should be driven by reuse needs, not platform anxiety.
+            </div>
+
+            <h3>3. Capacity: Unified, but Less Forgiving</h3>
+            <p>Fabric introduces unified capacity (F-SKUs) that power:</p>
+            <ul>
+              <li>Power BI</li>
+              <li>Data Engineering</li>
+              <li>Data Warehousing</li>
+              <li>Real-Time Analytics</li>
+            </ul>
+            <p>This replaces multiple disconnected pricing and capacity models.</p>
+            <p><strong>What's better:</strong></p>
+            <ul>
+              <li>One shared pool of compute</li>
+              <li>Easier architectural alignment across teams</li>
+              <li>Fewer platform silos</li>
+            </ul>
+            <p><strong>What's harder in reality:</strong></p>
+            <ul>
+              <li>Power BI Pro licenses are still required for authors</li>
+              <li>BI workloads now compete with engineering workloads</li>
+              <li>Poorly designed pipelines can directly impact report performance</li>
+              <li>Cost attribution across workloads is still evolving</li>
+            </ul>
+            <div class="article-tip">
+              <strong>Senior-level reminder:</strong> Capacity does not fix bad Power BI models. Inefficient DAX still hurts. Overloaded visuals still hurt. Poor refresh strategies still hurt. Fabric amplifies good Power BI design &mdash; and exposes weak design faster.
+            </div>
+
+            <h2>When Fabric Capacity Makes Sense (And When It Doesn't)</h2>
+            <p><strong>Fabric capacity is a strong fit when:</strong></p>
+            <ul>
+              <li>Multiple teams share the same data platform</li>
+              <li>BI, engineering, and analytics workloads coexist</li>
+              <li>You already struggle with Premium constraints</li>
+              <li>Centralized governance is a priority</li>
+            </ul>
+            <p><strong>Traditional Power BI Premium still makes sense when:</strong></p>
+            <ul>
+              <li>Power BI is the primary or only workload</li>
+              <li>Fabric engineering features are out of scope</li>
+              <li>Cost predictability matters more than flexibility</li>
+              <li>The BI team owns most of the data lifecycle</li>
+            </ul>
+            <p>Fabric is not mandatory &mdash; it's optional architecture.</p>
+
+            <h2>What's Mostly Hype (For Now)</h2>
+
+            <h3>"You Must Move Everything to Fabric"</h3>
+            <p><strong>Not true.</strong></p>
+            <ul>
+              <li>Existing Power BI workspaces continue to work</li>
+              <li>Premium capacities still exist</li>
+              <li>Microsoft supports gradual, selective adoption</li>
+            </ul>
+            <p>There is no requirement to redesign a functioning Power BI estate just because Fabric exists.</p>
+
+            <h3>"Power BI Is Just a Front-End Now"</h3>
+            <p><strong>Also not true.</strong></p>
+            <p>Power BI semantic models still:</p>
+            <ul>
+              <li>Define business metrics</li>
+              <li>Enforce governance and security</li>
+              <li>Control performance at query time</li>
+            </ul>
+            <p>Fabric adds upstream options &mdash; it does not replace the semantic layer. Business logic still belongs closest to consumption.</p>
+
+            <h2>Fabric Readiness: An Honest Reality Check</h2>
+            <p>Fabric is directionally strong, but not frictionless:</p>
+            <ul>
+              <li>Monitoring across workloads is still fragmented</li>
+              <li>CI/CD for Fabric assets is evolving</li>
+              <li>Cost visibility at workload level can be unclear</li>
+              <li>Many organizations lack the engineering maturity Fabric assumes</li>
+            </ul>
+            <p>For some teams, Fabric will feel empowering. For others, it will introduce operational complexity. Both outcomes are valid.</p>
+
+            <h2>What This Means for Your Power BI Setup Today</h2>
+            <p>If you already follow Power BI best practices, you're not behind.</p>
+            <p><strong>Keep Doing:</strong></p>
+            <ul>
+              <li>Star schema modeling</li>
+              <li>Thin reports over shared semantic models</li>
+              <li>Certified datasets</li>
+              <li>Clear Dev/Test/Prod separation</li>
+            </ul>
+            <p><strong>Start Evaluating:</strong></p>
+            <ul>
+              <li>Centralized data in OneLake</li>
+              <li>Dataflows Gen2 where reuse is required</li>
+              <li>Capacity planning that accounts for non-BI workloads</li>
+            </ul>
+            <p><strong>Avoid:</strong></p>
+            <ul>
+              <li>Rebuilding solutions "because Fabric"</li>
+              <li>Mixing heavy ETL logic into Power BI models</li>
+              <li>Assuming capacity will compensate for poor design</li>
+            </ul>
+
+            <h2>The Bottom Line</h2>
+            <p><strong>Power BI wasn't replaced &mdash; it was repositioned.</strong></p>
+            <p>Fabric is:</p>
+            <ul>
+              <li>An architectural unification</li>
+              <li>A platform-level shift</li>
+              <li>A stress test for existing BI practices</li>
+            </ul>
+            <p>For Power BI professionals, the message is simple: Fabric is not a reason to redesign your Power BI estate. It's a reason to validate whether your existing design was sound to begin with.</p>
+            <p>If your foundation is solid, Fabric isn't something you need to rush into. It's something you can adopt &mdash; deliberately, incrementally, and on your terms.</p>
+
+          </div>
+
+          <div class="article-footer">
+            <a href="#resources" class="link--arrow">&larr; Back to all resources</a>
           </div>
         </div>
       </section>
