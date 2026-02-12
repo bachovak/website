@@ -671,7 +671,7 @@
               <li>Keeps logic centralized instead of scattered across visuals</li>
             </ul>
             <h3>Example</h3>
-<pre><code>Sales – Online :=
+<pre><button class="code-copy" onclick="this.parentElement.querySelector('code').textContent.trim() && navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent).then(()=>{this.textContent='Copied!';this.classList.add('code-copy--copied');setTimeout(()=>{this.textContent='Copy';this.classList.remove('code-copy--copied')},2000)})">Copy</button><code>Sales – Online :=
 CALCULATE (
     [Total Sales],
     'Sales'[Channel] = "Online"
@@ -690,7 +690,7 @@ CALCULATE (
               <li>Can improve performance by avoiding repeated evaluation</li>
             </ul>
             <h3>Example</h3>
-<pre><code>Profit Margin :=
+<pre><button class="code-copy" onclick="this.parentElement.querySelector('code').textContent.trim() && navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent).then(()=>{this.textContent='Copied!';this.classList.add('code-copy--copied');setTimeout(()=>{this.textContent='Copy';this.classList.remove('code-copy--copied')},2000)})">Copy</button><code>Profit Margin :=
 VAR Revenue = [Total Sales]
 VAR Cost = [Total Cost]
 RETURN
@@ -709,7 +709,7 @@ DIVIDE ( Revenue - Cost, Revenue )</code></pre>
               <li>Keeps measures concise and readable</li>
             </ul>
             <h3>Example</h3>
-<pre><code>Profit Margin :=
+<pre><button class="code-copy" onclick="this.parentElement.querySelector('code').textContent.trim() && navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent).then(()=>{this.textContent='Copied!';this.classList.add('code-copy--copied');setTimeout(()=>{this.textContent='Copy';this.classList.remove('code-copy--copied')},2000)})">Copy</button><code>Profit Margin :=
 DIVIDE ( [Profit], [Total Sales] )</code></pre>
             <p>BLANK() values suppress misleading percentages in matrices and charts, instead of showing zeros that imply meaning.</p>
             <div class="article-tip">
@@ -725,7 +725,7 @@ DIVIDE ( [Profit], [Total Sales] )</code></pre>
               <li>Ideal for slicer-driven logic and dynamic labels</li>
             </ul>
             <h3>Example</h3>
-<pre><code>Selected Year :=
+<pre><button class="code-copy" onclick="this.parentElement.querySelector('code').textContent.trim() && navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent).then(()=>{this.textContent='Copied!';this.classList.add('code-copy--copied');setTimeout(()=>{this.textContent='Copy';this.classList.remove('code-copy--copied')},2000)})">Copy</button><code>Selected Year :=
 SELECTEDVALUE ( 'Date'[Year], "Multiple Years" )</code></pre>
             <div class="article-tip">
               <strong>Important guardrail:</strong> SELECTEDVALUE is best used for slicers and high-level context checks. Avoid using it in row-level calculations where the context is already singular &mdash; it adds unnecessary complexity and confusion.
@@ -740,7 +740,7 @@ SELECTEDVALUE ( 'Date'[Year], "Multiple Years" )</code></pre>
               <li>Keeps logic consistent across reports</li>
             </ul>
             <h3>Example</h3>
-<pre><code>Total Sales (All Products) :=
+<pre><button class="code-copy" onclick="this.parentElement.querySelector('code').textContent.trim() && navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent).then(()=>{this.textContent='Copied!';this.classList.add('code-copy--copied');setTimeout(()=>{this.textContent='Copy';this.classList.remove('code-copy--copied')},2000)})">Copy</button><code>Total Sales (All Products) :=
 CALCULATE (
     [Total Sales],
     REMOVEFILTERS ( 'Product' )
