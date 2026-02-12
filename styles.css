@@ -1064,6 +1064,7 @@ ul { list-style: none; }
 }
 
 .article-body pre {
+  position: relative;
   background: var(--colour-dark);
   color: rgba(255,255,255,0.9);
   border-radius: var(--radius);
@@ -1072,6 +1073,41 @@ ul { list-style: none; }
   overflow-x: auto;
   font-size: 0.9rem;
   line-height: 1.6;
+}
+
+.code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.code-copy:hover {
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.85);
+}
+
+.code-copy--copied {
+  background: var(--colour-green);
+  border-color: var(--colour-green);
+  color: #fff;
+}
+
+.code-copy--copied:hover {
+  background: var(--colour-green);
+  color: #fff;
 }
 
 .article-body code {

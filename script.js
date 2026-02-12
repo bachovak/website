@@ -195,6 +195,28 @@
     });
   }
 
+  /* ===== CODE COPY BUTTONS ===== */
+  document.querySelectorAll('.article-body pre').forEach(function (pre) {
+    var btn = document.createElement('button');
+    btn.className = 'code-copy';
+    btn.textContent = 'Copy';
+    btn.setAttribute('aria-label', 'Copy code to clipboard');
+    pre.appendChild(btn);
+
+    btn.addEventListener('click', function () {
+      var code = pre.querySelector('code');
+      var text = code ? code.textContent : pre.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        btn.classList.add('code-copy--copied');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('code-copy--copied');
+        }, 2000);
+      });
+    });
+  });
+
   /* ===== CTA & INTERNAL LINK HANDLING ===== */
   // Handle clicks on package cards and other deep links (e.g. #services/health-check)
   document.addEventListener('click', function (e) {
