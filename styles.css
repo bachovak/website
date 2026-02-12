@@ -996,6 +996,112 @@ ul { list-style: none; }
   line-height: 1.7;
 }
 
+/* ===== ARTICLE PAGE ===== */
+.article-back {
+  display: inline-block;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: color var(--transition);
+}
+.article-back:hover { color: #fff; }
+
+.page-header .badge {
+  margin-bottom: 16px;
+}
+
+.article-body h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--colour-border);
+}
+
+.article-body h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.article-body h3 {
+  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: var(--colour-mid);
+}
+
+.article-body p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.article-body ul {
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+
+.article-body li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.article-body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--colour-primary);
+}
+
+.article-body pre {
+  background: var(--colour-dark);
+  color: rgba(255,255,255,0.9);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.article-body code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.article-body p code {
+  background: rgba(217,119,6,0.08);
+  color: var(--colour-mid);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.article-tip {
+  border-left: 4px solid var(--colour-primary);
+  background: rgba(217,119,6,0.04);
+  padding: 20px 24px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.article-footer {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--colour-border);
+}
+
 /* ===== BOOKING BOX ===== */
 .booking-box {
   background: var(--colour-card);

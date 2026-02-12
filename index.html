@@ -608,7 +608,7 @@
               <span class="badge badge--category">DAX</span>
               <h3 class="article-card__title">5 DAX Functions Every BI Team Should Know (And Why)</h3>
               <p class="article-card__desc">Beyond SUM and COUNT. The functions that actually make your measures efficient, maintainable, and readable.</p>
-              <a href="#" class="link--arrow">Read more &rarr;</a>
+              <a href="#article-dax-functions" class="link--arrow">Read more &rarr;</a>
             </article>
 
             <article class="article-card">
@@ -636,6 +636,146 @@
             <h3 class="callout__heading">Free Download: Power BI CoE Starter Checklist</h3>
             <p>Not sure where to start with a CoE? Download this checklist — it covers the 12 things you need to decide before you build anything.</p>
             <a href="mailto:kristina@example.com?subject=CoE%20Starter%20Checklist" class="btn btn--primary">Download the checklist</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PAGE: ARTICLE — DAX FUNCTIONS ==================== -->
+    <div class="page" id="page-article-dax-functions">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <a href="#resources" class="article-back">&larr; Back to Resources</a>
+          <span class="badge badge--category">DAX</span>
+          <h1 class="page-header__title">5 DAX Functions Every BI Team Should Know (And Why)</h1>
+          <p class="page-header__intro">Beyond SUM and COUNT &mdash; the functions that make measures efficient, maintainable, and readable.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+          <div class="article-body">
+
+            <p>If you've worked with Microsoft Power BI long enough, you know this pattern well: the model starts clean, measures are simple &mdash; and six months later, no one wants to open the measure pane.</p>
+            <p>This usually isn't because the business logic is hard. It's because the wrong DAX patterns were allowed to spread.</p>
+            <p>The five functions below aren't advanced tricks. They are foundational tools that, when used consistently, keep models understandable, performant, and safe for teams to evolve over time.</p>
+
+            <h2>1. CALCULATE &mdash; The Engine Behind Context</h2>
+            <p>CALCULATE is the most important function in DAX because it changes filter context. Almost every meaningful business measure relies on it, directly or indirectly.</p>
+            <h3>Why it matters</h3>
+            <ul>
+              <li>Enables time intelligence and conditional logic</li>
+              <li>Allows measures to define their own business rules</li>
+              <li>Keeps logic centralized instead of scattered across visuals</li>
+            </ul>
+            <h3>Example</h3>
+<pre><code>Sales – Online :=
+CALCULATE (
+    [Total Sales],
+    'Sales'[Channel] = "Online"
+)</code></pre>
+            <p>This measure is explicit: the logic lives in DAX, not in report-level filters.</p>
+            <div class="article-tip">
+              <strong>Practical reality:</strong> CALCULATE is powerful &mdash; and it's also where many models quietly break. Each filter argument replaces existing filters unless explicitly preserved. BI teams should treat CALCULATE logic as part of the semantic contract of the model, not as a quick fix.
+            </div>
+
+            <h2>2. VAR &mdash; Readability First, Performance Second</h2>
+            <p>VAR lets you store intermediate results inside a measure and reuse them cleanly.</p>
+            <h3>Why it matters</h3>
+            <ul>
+              <li>Makes measures easier to read and review</li>
+              <li>Simplifies debugging and testing</li>
+              <li>Can improve performance by avoiding repeated evaluation</li>
+            </ul>
+            <h3>Example</h3>
+<pre><code>Profit Margin :=
+VAR Revenue = [Total Sales]
+VAR Cost = [Total Cost]
+RETURN
+DIVIDE ( Revenue - Cost, Revenue )</code></pre>
+            <p>This pattern is easier to reason about than a single dense expression &mdash; especially in team environments.</p>
+            <div class="article-tip">
+              <strong>Best practice:</strong> VAR always improves maintainability. Performance benefits depend on whether the expression would otherwise be re-evaluated &mdash; don't assume magic, but always prefer clarity.
+            </div>
+
+            <h2>3. DIVIDE &mdash; Defensive DAX That Behaves Well in Reports</h2>
+            <p>Division errors are a common cause of broken visuals and confused users. DIVIDE handles divide-by-zero scenarios safely and intentionally.</p>
+            <h3>Why it matters</h3>
+            <ul>
+              <li>Prevents errors without verbose logic</li>
+              <li>Returns BLANK() by default, which behaves better in visuals</li>
+              <li>Keeps measures concise and readable</li>
+            </ul>
+            <h3>Example</h3>
+<pre><code>Profit Margin :=
+DIVIDE ( [Profit], [Total Sales] )</code></pre>
+            <p>BLANK() values suppress misleading percentages in matrices and charts, instead of showing zeros that imply meaning.</p>
+            <div class="article-tip">
+              <strong>Best practice:</strong> Always use DIVIDE instead of <code>/</code> in measures intended for reporting.
+            </div>
+
+            <h2>4. SELECTEDVALUE &mdash; Safe Context Awareness</h2>
+            <p>Interactive reports require measures to react to user selections. SELECTEDVALUE retrieves a single value only when exactly one exists, otherwise returning a defined fallback.</p>
+            <h3>Why it matters</h3>
+            <ul>
+              <li>Cleaner than VALUES + HASONEVALUE</li>
+              <li>Prevents ambiguous or broken results</li>
+              <li>Ideal for slicer-driven logic and dynamic labels</li>
+            </ul>
+            <h3>Example</h3>
+<pre><code>Selected Year :=
+SELECTEDVALUE ( 'Date'[Year], "Multiple Years" )</code></pre>
+            <div class="article-tip">
+              <strong>Important guardrail:</strong> SELECTEDVALUE is best used for slicers and high-level context checks. Avoid using it in row-level calculations where the context is already singular &mdash; it adds unnecessary complexity and confusion.
+            </div>
+
+            <h2>5. ALL and REMOVEFILTERS &mdash; Intentional Control of Filters</h2>
+            <p>Some calculations must ignore parts of the filter context &mdash; totals, benchmarks, or contribution percentages. That's where filter-removal functions belong.</p>
+            <h3>Why it matters</h3>
+            <ul>
+              <li>Enables percent-of-total and share calculations</li>
+              <li>Supports baselines and comparisons</li>
+              <li>Keeps logic consistent across reports</li>
+            </ul>
+            <h3>Example</h3>
+<pre><code>Total Sales (All Products) :=
+CALCULATE (
+    [Total Sales],
+    REMOVEFILTERS ( 'Product' )
+)</code></pre>
+            <div class="article-tip">
+              <strong>Team guidance:</strong> While ALL and REMOVEFILTERS often behave similarly, many teams prefer REMOVEFILTERS because it communicates intent more clearly and reduces the risk of unintended side effects in complex expressions.
+            </div>
+
+            <h2>What Not to Do (Common Team Pitfalls)</h2>
+            <p>Avoid these patterns &mdash; they're responsible for most fragile models:</p>
+            <ul>
+              <li>Embedding business logic in visuals instead of measures</li>
+              <li>Nesting multiple CALCULATE calls without documenting intent</li>
+              <li>Using <code>/</code> instead of DIVIDE in production measures</li>
+              <li>Overusing SELECTEDVALUE where row context already exists</li>
+              <li>Removing filters broadly (<code>ALL(Table)</code>) when only a column needs to be ignored</li>
+              <li>Writing clever one-line measures that no one else can maintain</li>
+            </ul>
+            <p>If a measure needs explaining in a meeting, it probably needs refactoring.</p>
+
+            <h2>Final Thought: DAX Is a Team Discipline</h2>
+            <p>These functions don't make a model "advanced" on their own. What matters is how consistently they're applied.</p>
+            <p><strong>Strong BI teams:</strong></p>
+            <ul>
+              <li>Centralize logic in measures</li>
+              <li>Prefer clarity over cleverness</li>
+              <li>Agree on filter-handling patterns</li>
+              <li>Write DAX that explains itself</li>
+            </ul>
+            <p>When your measures are readable, predictable, and performant, you reduce defects, speed up onboarding, and turn your semantic model into something the business can actually rely on.</p>
+
+          </div>
+
+          <div class="article-footer">
+            <a href="#resources" class="link--arrow">&larr; Back to all resources</a>
           </div>
         </div>
       </section>

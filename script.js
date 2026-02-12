@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact'];
+  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact', 'article-dax-functions'];
 
   var scrollTargets = {
     'health-check': 'pkg-health-check',
@@ -22,9 +22,10 @@
     if (target) target.classList.add('active');
 
     // Update nav active state
+    var navPage = page.startsWith('article-') ? 'resources' : page;
     document.querySelectorAll('.nav__link').forEach(function (link) {
       link.classList.remove('active');
-      if (link.getAttribute('data-page') === page) {
+      if (link.getAttribute('data-page') === navPage) {
         link.classList.add('active');
       }
     });
