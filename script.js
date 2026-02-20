@@ -11,6 +11,38 @@
     'fractional': 'pkg-fractional'
   };
 
+  /* ===== MOBILE MENU ===== */
+  // Must be initialised before navigateTo is called so closeMobileMenu works on first load
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('nav-links');
+  var navOverlay = document.getElementById('nav-overlay');
+
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    navLinks.classList.remove('open');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function () {
+    var isOpen = hamburger.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    navLinks.classList.toggle('open');
+    navOverlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close menu when clicking a link
+  navLinks.addEventListener('click', function (e) {
+    if (e.target.classList.contains('nav__link')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close menu when clicking the overlay
+  navOverlay.addEventListener('click', closeMobileMenu);
+
   function navigateTo(page, scrollTo) {
     if (!pages.includes(page)) page = 'home';
 
@@ -68,37 +100,6 @@
   // Initial load
   var initialRoute = getPageFromHash();
   navigateTo(initialRoute.page, initialRoute.scrollTo);
-
-  /* ===== MOBILE MENU ===== */
-  var hamburger = document.getElementById('hamburger');
-  var navLinks = document.getElementById('nav-links');
-  var navOverlay = document.getElementById('nav-overlay');
-
-  function closeMobileMenu() {
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    navLinks.classList.remove('open');
-    navOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  hamburger.addEventListener('click', function () {
-    var isOpen = hamburger.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    navLinks.classList.toggle('open');
-    navOverlay.classList.toggle('open');
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  // Close menu when clicking a link
-  navLinks.addEventListener('click', function (e) {
-    if (e.target.classList.contains('nav__link')) {
-      closeMobileMenu();
-    }
-  });
-
-  // Close menu when clicking the overlay
-  navOverlay.addEventListener('click', closeMobileMenu);
 
   /* ===== FAQ ACCORDION ===== */
   document.querySelectorAll('.faq__question').forEach(function (btn) {
