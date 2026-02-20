@@ -1,5 +1,3 @@
-This website was created using Claude code with this prompt:
-
 # Claude Code Prompt — Kristina Bachová · Freelance Power BI Specialist Website
 
 ---
