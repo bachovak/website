@@ -131,6 +131,19 @@ ul { list-style: none; }
   color: var(--colour-primary);
 }
 
+/* Mobile menu overlay */
+.nav__overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+}
+
+.nav__overlay.open {
+  display: block;
+}
+
 /* Hamburger */
 .nav__hamburger {
   display: none;
@@ -549,6 +562,7 @@ ul { list-style: none; }
 .service-card__header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -789,7 +803,7 @@ ul { list-style: none; }
 }
 
 .faq__item.open .faq__answer {
-  max-height: 300px;
+  max-height: 600px;
 }
 
 /* ===== CASE STUDIES ===== */
@@ -1379,6 +1393,7 @@ ul { list-style: none; }
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -4px 0 24px rgba(0,0,0,0.3);
+    z-index: 999;
   }
 
   .nav__links.open {
