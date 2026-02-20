@@ -138,6 +138,7 @@
 
         .email-backup {
             margin-top: 16px;
+            margin-bottom: 0;
             font-size: 13px;
             color: var(--colour-text-muted);
         }
@@ -253,6 +254,10 @@
 
         /* ---- Responsive ---- */
         @media (max-width: 600px) {
+            header a {
+                font-size: 16px;
+            }
+
             .container {
                 padding: 32px 16px 24px;
             }
@@ -271,6 +276,13 @@
 
             .download-card h1 {
                 font-size: 20px;
+            }
+
+            .download-btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 14px 20px;
             }
         }
     </style>
