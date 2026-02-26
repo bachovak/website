@@ -1587,18 +1587,25 @@ ul { list-style: none; }
 }
 
 @media (max-width: 640px) {
+  /* Banner — stack text and buttons vertically, full-width buttons */
+  .cookie-banner {
+    padding: 16px 0 max(16px, env(safe-area-inset-bottom));
+  }
   .cookie-banner__inner {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: stretch;
+    gap: 14px;
   }
+  .cookie-banner__content { min-width: 0; }
   .cookie-banner__actions {
     width: 100%;
-    justify-content: stretch;
+    flex-direction: column;
+    gap: 8px;
   }
   .cookie-banner__actions .btn {
-    flex: 1;
+    width: 100%;
     text-align: center;
+    flex: none;
   }
 }
 
@@ -1768,9 +1775,24 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 
-@media (max-width: 480px) {
-  .cookie-modal__footer {
+@media (max-width: 600px) {
+  /* Modal — slide up as a bottom sheet, full-width, tighter padding */
+  .cookie-modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .cookie-modal__box {
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .cookie-modal__header  { padding: 20px 20px 0; }
+  .cookie-modal__intro   { padding: 10px 20px 0; }
+  .cookie-modal__body    { padding: 12px 20px;   }
+  .cookie-modal__footer  {
+    padding: 14px 20px max(20px, env(safe-area-inset-bottom));
     flex-direction: column-reverse;
+    gap: 8px;
   }
   .cookie-modal__footer .btn {
     width: 100%;
