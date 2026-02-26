@@ -4,31 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — CoE Card</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink: #1a1a1a;
-      --paper: #f5f2ec;
-      --accent: #c8622a;
-      --accent-pale: #f0e0d4;
-      --muted: #7a7268;
-      --border: #d8d3cb;
-      --card-bg: #ffffff;
+      --ink:        #1C1917;
+      --paper:      #FAF7F5;
+      --accent:     #D97706;
+      --accent-pale:rgba(217,119,6,0.08);
+      --muted:      #78716C;
+      --border:     #E7E5E4;
+      --card-bg:    #FFFFFF;
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
       background: var(--paper);
-      min-height: 100vh;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Top nav ── */
+    .topnav {
+      background: #1C1917;
+      height: 64px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topnav__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    .topnav__back {
+      font-size: 13px;
+      font-weight: 500;
+      color: #D97706;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .topnav__back:hover { color: #F0B429; }
+
+    /* ── Page layout ── */
+    .page-content {
+      display: flex;
       justify-content: center;
       padding: 3rem 1.5rem;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(200,98,42,0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(200,98,42,0.04) 0%, transparent 50%);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #1C1917;
+      padding: 28px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 2rem;
+    }
+
+    footer p {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      color: #D97706;
+      font-size: 12px;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    footer a:hover { color: #F0B429; }
+
+    @media (max-width: 768px) {
+      .topnav { padding: 0 20px; }
+      .topnav__logo { font-size: 16px; }
+      .footer { padding: 24px 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
     }
 
     .card-wrapper {
@@ -88,7 +154,7 @@
       content: '';
       display: block;
       height: 3px;
-      background: linear-gradient(90deg, var(--accent) 0%, #e8945a 100%);
+      background: linear-gradient(90deg, var(--accent) 0%, #F0B429 100%);
     }
 
     .card-inner {
@@ -134,7 +200,7 @@
     .card-description {
       font-size: 0.94rem;
       line-height: 1.75;
-      color: #3d3a36;
+      color: #44403C;
       font-weight: 300;
       margin-bottom: 1.75rem;
     }
@@ -161,7 +227,7 @@
     /* Outcome block */
     .outcome {
       background: var(--ink);
-      color: #f5f2ec;
+      color: #FAF7F5;
       border-radius: 3px;
       padding: 1.4rem 1.75rem;
       display: flex;
@@ -179,7 +245,7 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background: rgba(200,98,42,0.15);
+      background: rgba(217,119,6,0.15);
     }
 
     .outcome-icon {
@@ -202,7 +268,7 @@
     .outcome-text {
       font-size: 0.9rem;
       line-height: 1.5;
-      color: #e8e4dc;
+      color: rgba(255,255,255,0.8);
       font-weight: 300;
     }
 
@@ -301,9 +367,9 @@
       to   { opacity: 1; transform: translateX(0); }
     }
 
-    .tier-viewer   { background: #f0ece4; border-left: 3px solid #b0a898; }
-    .tier-pro      { background: #f0e8e0; border-left: 3px solid #c8622a; }
-    .tier-team     { background: #1a1a1a; border-left: 3px solid #c8622a; }
+    .tier-viewer   { background: #F3F0EB; border-left: 3px solid #C5BFB8; }
+    .tier-pro      { background: #FEF3C7; border-left: 3px solid var(--accent); }
+    .tier-team     { background: var(--ink); border-left: 3px solid var(--accent); }
 
     .tier-name {
       font-size: 0.7rem;
@@ -311,9 +377,9 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-    .tier-viewer .tier-name  { color: #5a5550; }
-    .tier-pro .tier-name     { color: var(--accent); }
-    .tier-team .tier-name    { color: #e8945a; }
+    .tier-viewer .tier-name  { color: var(--muted); }
+    .tier-pro .tier-name     { color: #92400E; }
+    .tier-team .tier-name    { color: var(--accent); }
 
     .tier-desc {
       font-size: 0.7rem;
@@ -369,7 +435,7 @@
     .pipe-step:last-child .pipe-line { display: none; }
 
     .pipe-dev  .pipe-dot  { background: #6ea8d0; }
-    .pipe-test .pipe-dot  { background: #e8a84a; }
+    .pipe-test .pipe-dot  { background: var(--accent); }
     .pipe-prod .pipe-dot  { background: #5ab882; }
 
     .pipe-dev  .pipe-line  { background: linear-gradient(#6ea8d0, #e8a84a); }
@@ -408,6 +474,12 @@
 </head>
 <body>
 
+<nav class="topnav">
+  <a href="./" class="topnav__logo">Kristina Bachová</a>
+  <a href="./#portfolio" class="topnav__back">← Back to portfolio</a>
+</nav>
+
+<div class="page-content">
   <div class="card-wrapper">
     <div class="category">CoE &amp; Governance</div>
 
@@ -531,6 +603,12 @@
       </div>
     </div>
   </div>
+</div>
+
+<footer>
+  <p>CoE &amp; Governance · Power BI · SharePoint</p>
+  <a href="./">kristinabachova.com</a>
+</footer>
 
 </body>
 </html>
