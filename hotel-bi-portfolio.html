@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel BI Template — Kristina Bachová</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:      #1C1917;
+    --primary:   #D97706;
+    --accent:    #EA580C;
+    --mid:       #92400E;
+    --bg:        #FAF7F5;
+    --card:      #FFFFFF;
+    --text:      #44403C;
+    --muted:     #78716C;
+    --border:    #E7E5E4;
+    --primary-lt:#F0B429;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  a:hover { color: var(--mid); }
+
+  /* ── Top nav ── */
+  .topnav {
+    background: var(--dark);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topnav__logo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  .topnav__logo:hover { color: #FFFFFF; }
+
+  .topnav__back {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    letter-spacing: 0.02em;
+  }
+  .topnav__back:hover { color: var(--primary-lt); }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--dark);
+    padding: 80px 60px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 320px; height: 320px;
+    border: 1px solid rgba(217,119,6,0.12);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: 80px;
+    width: 500px; height: 500px;
+    border: 1px solid rgba(217,119,6,0.06);
+    border-radius: 50%;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.1;
+    max-width: 680px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .hero-meta-item .value {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  /* ── Power BI Embed ── */
+  .embed-section {
+    background: var(--dark);
+    padding: 0 60px 72px;
+  }
+
+  .embed-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 20px;
+  }
+
+  .pbi-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 62.25%;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    margin-top: 16px;
+  }
+
+  .pbi-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  section {
+    padding: 72px 0;
+  }
+
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.8;
+    max-width: 680px;
+  }
+
+  p + p { margin-top: 16px; }
+
+  /* ── Data Sources ── */
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  .source-card {
+    background: var(--card);
+    padding: 28px 32px;
+    position: relative;
+  }
+
+  .source-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--primary);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .source-card:hover::before { opacity: 1; }
+
+  .source-icon {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .source-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .source-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: none;
+  }
+
+  .source-fields {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    background: var(--bg);
+    color: var(--dark);
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Report Pages ── */
+  .pages-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .page-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 28px 0;
+    align-items: start;
+  }
+
+  .page-row:first-child { border-top: 1px solid var(--border); }
+
+  .page-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    padding-right: 32px;
+    padding-top: 2px;
+  }
+
+  .page-number {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .page-audience {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .page-desc {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 12px;
+    max-width: none;
+  }
+
+  .questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .question {
+    font-size: 12.5px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .question::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 11px;
+  }
+
+  /* ── Services CTA ── */
+  .services {
+    background: var(--dark);
+    padding: 72px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .services::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border: 1px solid rgba(217,119,6,0.08);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .services .section-label { color: rgba(217,119,6,0.8); }
+
+  .services .section-title {
+    color: #FFFFFF;
+    max-width: 580px;
+  }
+
+  .services-body {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+
+  .services-body strong {
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+  }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 48px;
+  }
+
+  .package-card {
+    background: rgba(255,255,255,0.04);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+
+  .package-card:hover {
+    background: rgba(217,119,6,0.08);
+  }
+
+  .package-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--primary);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .package-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    max-width: none;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--primary);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 14px 32px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+  }
+
+  .cta-note {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Tech Stack ── */
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .stack-badge {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--dark);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 3px;
+  }
+
+  .stack-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--dark);
+    padding: 32px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  footer p {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    max-width: none;
+  }
+
+  footer a {
+    color: var(--primary);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+  footer a:hover { color: var(--primary-lt); }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-label, .hero h1, .hero-sub, .hero-meta {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero h1       { animation-delay: 0.1s; }
+  .hero-sub      { animation-delay: 0.2s; }
+  .hero-meta     { animation-delay: 0.3s; }
+
+  @media (max-width: 768px) {
+    .topnav { padding: 0 24px; }
+    .hero, .services { padding: 56px 24px; }
+    .embed-section { padding: 0 24px 56px; }
+    .container { padding: 0 24px; }
+    footer { padding: 28px 24px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .page-row { grid-template-columns: 1fr; gap: 12px; }
+    .page-name { padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<nav class="topnav">
+  <a href="./" class="topnav__logo">Kristina Bachová</a>
+  <a href="./#portfolio" class="topnav__back">← Back to portfolio</a>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-label">Portfolio Project · Power BI · Hospitality</div>
+    <h1>Hotel Analytics<br><em>Reporting Template</em></h1>
+    <p class="hero-sub">
+      A fully parameterised Power BI reporting suite built on Oracle Opera PMS export data — designed to give hotel leadership instant visibility across revenue, reservations, and sales performance.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Data Source</span>
+        <span class="value">Oracle Opera PMS</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Report Pages</span>
+        <span class="value">6 completed</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Data Tables</span>
+        <span class="value">13 (5 fact, 5 dim)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">DAX Measures</span>
+        <span class="value">55+</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── POWER BI EMBED ── -->
+<div class="embed-section">
+  <div class="container">
+    <div class="embed-label">Live Report Preview</div>
+    <div class="pbi-embed">
+      <iframe title="Hotel_Report" src="https://app.powerbi.com/view?r=eyJrIjoiNTBjZTYzYWQtMGQxZi00ZjlkLTk3ODYtNDdjNDZhOTkxMWFlIiwidCI6IjY0M2JiODY4LWRmMDEtNDI4MC05NGQ4LTVmMTM2NDY5ZjU4NiIsImMiOjl9&embedImagePlaceholder=true&pageName=be0760aa761cd0409700" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ── DATA SOURCES ── -->
+<section>
+  <div class="container">
+    <div class="section-label">Data Architecture</div>
+    <h2 class="section-title">Five Opera PMS <em>data sources,</em><br>one connected model</h2>
+    <p>All data flows from scheduled Opera PMS exports — no live database connection required. Files are dropped into watched folders and Power BI picks them up automatically on refresh, with deduplication logic ensuring the most recent version of each record always wins.</p>
+
+    <div class="sources-grid">
+
+      <div class="source-card">
+        <div class="source-icon">01 · Daily</div>
+        <div class="source-name">Daily Flash / Manager's Report</div>
+        <div class="source-desc">One file per business day. Vertical layout with Opera header rows automatically skipped. Drives all operational KPIs.</div>
+        <div class="source-fields">
+          <span class="tag">Occupancy %</span>
+          <span class="tag">ADR</span>
+          <span class="tag">RevPAR</span>
+          <span class="tag">Room Revenue</span>
+          <span class="tag">F&B Revenue</span>
+          <span class="tag">Total Revenue</span>
+        </div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-icon">02 · Reservations</div>
+        <div class="source-name">Reservation Activity Export</div>
+        <div class="source-desc">XML format. Incremental by quarter — multiple files combine automatically. Deduplication keeps latest status per confirmation number.</div>
+        <div class="source-fields">
+          <span class="tag">Status</span>
+          <span class="tag">Arrival / Departure</span>
+          <span class="tag">Rate Code</span>
+          <span class="tag">Market Segment</span>
+          <span class="tag">Lead Time</span>
+          <span class="tag">Company</span>
+        </div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-icon">03 · Segments</div>
+        <div class="source-name">Market Segment Statistics</div>
+        <div class="source-desc">Monthly segment-level production summary. Mapped through a configurable segment dimension to standardise Opera codes across properties.</div>
+        <div class="source-fields">
+          <span class="tag">Segment Room Nights</span>
+          <span class="tag">Segment Revenue</span>
+          <span class="tag">Revenue Mix %</span>
+        </div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-icon">04 · Packages</div>
+        <div class="source-name">Package Forecast</div>
+        <div class="source-desc">8-day rolling Opera forecast export. Covers room-only vs packaged stays with F&B cover and revenue uplift analysis.</div>
+        <div class="source-fields">
+          <span class="tag">Forecast Rooms</span>
+          <span class="tag">Package Revenue</span>
+          <span class="tag">F&B Covers</span>
+          <span class="tag">Avg Uplift</span>
+          <span class="tag">Cover Ratio</span>
+        </div>
+      </div>
+
+      <div class="source-card">
+        <div class="source-icon">05 · Sales</div>
+        <div class="source-name">Profile Production Statistics</div>
+        <div class="source-desc">XML export. Account-level production data for the sales team. Powers the Account Review page with concentration risk analysis and owner performance tracking.</div>
+        <div class="source-fields">
+          <span class="tag">Account Room Nights</span>
+          <span class="tag">Account Revenue</span>
+          <span class="tag">Cancel Rate</span>
+          <span class="tag">No Show Rate</span>
+          <span class="tag">Block %</span>
+          <span class="tag">Sales Owner</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── REPORT PAGES ── -->
+<section>
+  <div class="container">
+    <div class="section-label">Report Suite</div>
+    <h2 class="section-title">Six pages, each built<br>around a <em>specific audience</em></h2>
+    <p>Every page is designed around a specific decision-maker and the questions they need answered at the start of their day — not a generic KPI dump.</p>
+
+    <div class="pages-list">
+
+      <div class="page-row">
+        <div class="page-name">
+          <div class="page-number">PAGE 01</div>
+          GM Dashboard
+          <div class="page-audience">AUDIENCE · General Manager</div>
+        </div>
+        <div class="page-content">
+          <p class="page-desc">Single-screen operational overview with all critical KPIs for the current business date. Revenue by category breakdown and MTD trend chart. Designed to be the first screen a GM opens every morning.</p>
+          <div class="questions-list">
+            <div class="question">What is today's occupancy, ADR and RevPAR?</div>
+            <div class="question">How does today compare to the same day last month?</div>
+            <div class="question">What is the current revenue split between rooms, F&B and other?</div>
+            <div class="question">Are we tracking ahead or behind on total revenue month-to-date?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-row">
+        <div class="page-name">
+          <div class="page-number">PAGE 02</div>
+          Package Forecast
+          <div class="page-audience">AUDIENCE · F&B Manager · Revenue Manager</div>
+        </div>
+        <div class="page-content">
+          <p class="page-desc">8-day forward view of packaged vs room-only reservations. Shows F&B cover forecast, revenue uplift per package type, and occupancy contribution by package code. Allows F&B to plan staffing and procurement up to 8 days out.</p>
+          <div class="questions-list">
+            <div class="question">How many F&B covers should we plan for each of the next 8 days?</div>
+            <div class="question">Which package codes are driving the most revenue uplift?</div>
+            <div class="question">What percentage of forecasted rooms include a package?</div>
+            <div class="question">Which days have the highest average package rate?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-row">
+        <div class="page-name">
+          <div class="page-number">PAGE 03</div>
+          Account Review
+          <div class="page-audience">AUDIENCE · Sales Director · Sales Manager</div>
+        </div>
+        <div class="page-content">
+          <p class="page-desc">Full account production overview for a selected period. Includes a ranked account table with conditional formatting on cancellation rates and revenue contribution, revenue concentration risk indicator, segment donut chart with custom tooltip, and owner performance chart. Drill-through enabled from other pages.</p>
+          <div class="questions-list">
+            <div class="question">Which accounts are producing the most room nights and revenue this period?</div>
+            <div class="question">Are we over-reliant on a small number of accounts — concentration risk?</div>
+            <div class="question">Which accounts have high cancellation or no-show rates?</div>
+            <div class="question">How is each sales owner's portfolio performing across segments?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-row">
+        <div class="page-name">
+          <div class="page-number">PAGE 04</div>
+          Sales Daily
+          <div class="page-audience">AUDIENCE · Sales Manager · Reservations</div>
+        </div>
+        <div class="page-content">
+          <p class="page-desc">Morning dashboard for the sales and reservations team. Shows overnight booking activity, current rooms-on-books position, a 30-day booking pace chart with trend line, and an arrivals table for the next 7 days with VIP highlighting. All TODAY() based — refreshes automatically each day.</p>
+          <div class="questions-list">
+            <div class="question">How many new bookings came in yesterday and overnight?</div>
+            <div class="question">How many cancellations in the last 7 days — is the trend concerning?</div>
+            <div class="question">How many room nights and how much revenue is currently on books?</div>
+            <div class="question">Who is arriving in the next 7 days, and are there any VIPs?</div>
+            <div class="question">Is booking pace accelerating or slowing over the last 30 days?</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── TECH STACK ── -->
+<section>
+  <div class="container">
+    <div class="section-label">Technical Build</div>
+    <h2 class="section-title">Enterprise-grade <em>architecture</em><br>in a deliverable template</h2>
+    <p>Built to professional BI standards — the same patterns used in enterprise hotel chains, packaged into a template that can be deployed at an independent property in hours rather than months.</p>
+    <p>The model is fully parameterised: hotel name, room count, currency symbol, date format and fiscal year start month are all controlled from a single parameters table. Deploying for a new client requires updating folder paths and parameters only — no query or DAX changes needed.</p>
+
+    <div class="stack-row">
+      <div class="stack-badge"><span class="dot"></span> Power BI Desktop (PBIP)</div>
+      <div class="stack-badge"><span class="dot"></span> Power Query M</div>
+      <div class="stack-badge"><span class="dot"></span> DAX · 55+ measures</div>
+      <div class="stack-badge"><span class="dot"></span> Tabular Editor 3</div>
+      <div class="stack-badge"><span class="dot"></span> Calculation Groups</div>
+      <div class="stack-badge"><span class="dot"></span> Oracle Opera PMS</div>
+      <div class="stack-badge"><span class="dot"></span> XML + Excel data sources</div>
+      <div class="stack-badge"><span class="dot"></span> Star schema data model</div>
+      <div class="stack-badge"><span class="dot"></span> Folder-based incremental load</div>
+      <div class="stack-badge"><span class="dot"></span> Custom JSON theme</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES CTA ── -->
+<section class="services">
+  <div class="container">
+    <div class="section-label">Work With Me</div>
+    <h2 class="section-title">This template is the<br>foundation — I <em>customise it</em><br>for your property</h2>
+    <p class="services-body">
+      Every hotel is different. Your Opera export column names, your segment structure, your fiscal year, your brand colours — this template is designed to absorb all of that. As a freelance Power BI consultant with 10+ years in hospitality and enterprise BI, I can take this foundation and <strong>deliver a production-ready reporting suite tailored to your property</strong> in a fraction of the time a build-from-scratch engagement would take.
+    </p>
+
+    <div class="packages-grid">
+      <div class="package-card">
+        <div class="package-name">BI Health Check</div>
+        <div class="package-desc">A structured assessment of your current reporting setup — what's working, what's at risk, and what it's costing you.</div>
+      </div>
+      <div class="package-card">
+        <div class="package-name">BI Stabilisation</div>
+        <div class="package-desc">Fix broken reports, unreliable data pipelines, and governance gaps. Get your existing investment working properly.</div>
+      </div>
+      <div class="package-card">
+        <div class="package-name">Template Deployment</div>
+        <div class="package-desc">This Hotel BI template configured, branded and deployed for your property — connected to your Opera exports and ready to use.</div>
+      </div>
+      <div class="package-card">
+        <div class="package-name">Fractional BI Ops</div>
+        <div class="package-desc">Ongoing BI operations support on a retainer basis — your reports stay accurate, maintained and evolving without a full-time hire.</div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="./#contact" class="btn-primary">Get in touch</a>
+      <span class="cta-note">Remote · Europe-based · Available for new projects</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Hotel BI Template · Power BI · Oracle Opera PMS</p>
+  <a href="./">kristinabachova.com</a>
+</footer>
+
+</body>
+</html>
