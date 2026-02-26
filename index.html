@@ -6,10 +6,9 @@
   <title>Kristina Bachová — Freelance Power BI Specialist</title>
   <meta name="description" content="Freelance Power BI Specialist — making BI reliable, scalable & business-trusted. Health Checks, Stabilisation, CoE Setup, and Fractional BI Ops for teams across Europe.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <!-- Fonts are self-hosted (see /fonts directory) — no data sent to Google servers -->
+  <script src="cookie-consent.js" defer></script>
 </head>
 <body>
 
@@ -637,10 +636,18 @@
         </div>
       </section>
 
-      <!-- Kit form -->
+      <!-- Kit newsletter form — loads only after marketing cookie consent -->
       <section class="section">
         <div class="container container--narrow">
-          <script async data-uid="bb35d512cc" src="https://kristina-bachova.kit.com/bb35d512cc/index.js"></script>
+          <!-- Placeholder shown until marketing cookies are accepted -->
+          <div id="kit-consent-placeholder" class="consent-placeholder">
+            <span class="consent-placeholder__icon">&#x2709;&#xfe0f;</span>
+            <p class="consent-placeholder__heading">Subscribe to Power BI tips &amp; insights</p>
+            <p class="consent-placeholder__text">The newsletter sign-up form requires <strong>Marketing cookies</strong> to load.<br>Accept marketing cookies to see it here.</p>
+            <button class="btn btn--secondary btn--sm" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Manage cookie settings</button>
+          </div>
+          <!-- Kit form renders here once marketing consent is given -->
+          <div id="kit-form-container" style="display:none;"></div>
         </div>
       </section>
 
@@ -1360,8 +1367,16 @@ CALCULATE (
         <div class="container container--narrow">
           <div class="booking-box">
             <h2 class="booking-box__title">Book a free 30-min discovery call</h2>
-            <div class="calendly-inline-widget" data-url="https://calendly.com/bachovak/30min" style="min-width:320px;height:700px;"></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <!-- Placeholder shown until functional cookies are accepted -->
+            <div id="calendly-consent-placeholder" class="consent-placeholder">
+              <span class="consent-placeholder__icon">&#x1f4c5;</span>
+              <p class="consent-placeholder__heading">Book a free 30-min discovery call</p>
+              <p class="consent-placeholder__text">The booking calendar (Calendly) requires <strong>Functional cookies</strong> to load.<br>Accept functional cookies to use it here.</p>
+              <button class="btn btn--secondary btn--sm" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Manage cookie settings</button>
+              <p class="consent-placeholder__alt">Prefer to skip it? <a href="#contact">Send me a message below</a> instead.</p>
+            </div>
+            <!-- Calendly widget — revealed once functional consent is given (script loaded via cookie-consent.js) -->
+            <div class="calendly-inline-widget" data-url="https://calendly.com/bachovak/30min" style="min-width:320px;height:700px;display:none;"></div>
           </div>
         </div>
       </section>
@@ -1401,6 +1416,14 @@ CALCULATE (
               <label for="contact-message" class="form-label">Message <span class="optional">(optional)</span></label>
               <textarea id="contact-message" name="message" class="form-textarea" rows="5"></textarea>
             </div>
+            <!-- GDPR consent checkbox — must be checked to submit (not pre-ticked) -->
+            <div class="form-group form-group--consent">
+              <label class="form-consent">
+                <input type="checkbox" id="consent-data" name="consent_data" class="form-consent__input">
+                <span class="form-consent__text">I agree to my personal data being processed to respond to my enquiry. See <a href="#privacy-policy" class="form-consent__link">Privacy Policy</a>. <span class="required">*</span></span>
+              </label>
+              <span class="form-error" id="error-consent">Please tick the box to confirm your consent before submitting.</span>
+            </div>
             <button type="submit" class="btn btn--primary btn--full">Send message</button>
           </form>
           <div class="form-success" id="form-success" hidden>
@@ -1427,6 +1450,230 @@ CALCULATE (
 
     </div>
 
+    <!-- ==================== PAGE: PRIVACY & COOKIE POLICY ==================== -->
+    <div class="page" id="page-privacy-policy">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <h1 class="page-header__title">Privacy &amp; Cookie Policy</h1>
+          <p class="page-header__intro">How I collect, use, and protect your personal data — written in plain English.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="policy-body">
+
+            <p class="policy-meta">Last updated: 26 February 2026</p>
+
+            <!-- 1. Who I am -->
+            <h2>1. Who I am (Data Controller)</h2>
+            <p>
+              <strong>Kristina Bachov&aacute;</strong><br>
+              Freelance Power BI Specialist<br>
+              Based in Portugal<br>
+              Contact: <a href="mailto:hello@kristinabachova.com">hello@kristinabachova.com</a>
+            </p>
+            <p>
+              I am the data controller for personal data collected through this website. As a sole trader, I take data protection seriously and process only what is necessary.
+            </p>
+
+            <!-- 2. What data I collect -->
+            <h2>2. What personal data I collect</h2>
+
+            <h3>Contact form</h3>
+            <p>When you use the contact form I collect: your name, email address, company name (optional), and your message. This data is processed by <strong>Formspree</strong> (a third-party form processor) and forwarded to my email inbox.</p>
+
+            <h3>Newsletter sign-up</h3>
+            <p>If you subscribe to my newsletter, I collect your email address (and optionally your name). This is processed by <strong>Kit (formerly ConvertKit)</strong>, my email marketing platform.</p>
+
+            <h3>Booking widget</h3>
+            <p>If you book a discovery call via the Calendly booking widget, Calendly collects your name, email address, and scheduling preferences directly. I receive a copy of your booking details. See <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">Calendly's Privacy Policy</a> for details.</p>
+
+            <h3>Cookies and usage data</h3>
+            <p>The site uses cookies and similar local storage as described in Section 9 below. I do not currently use analytics tools that track your browsing behaviour.</p>
+
+            <h3>Server logs</h3>
+            <p>Like most websites, my hosting provider (GitHub Pages) may log your IP address and browser information in standard server access logs. I do not control or access these logs directly. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's Privacy Statement</a> for details.</p>
+
+            <!-- 3. Legal basis -->
+            <h2>3. Why I collect it (Legal basis)</h2>
+
+            <table class="rights-table cookie-table">
+              <thead>
+                <tr>
+                  <th>Purpose</th>
+                  <th>Data</th>
+                  <th>Legal basis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Responding to your enquiry</td>
+                  <td>Name, email, message</td>
+                  <td><strong>Consent</strong> (you tick the checkbox on the form) and <strong>Legitimate interest</strong> (responding to a business enquiry)</td>
+                </tr>
+                <tr>
+                  <td>Newsletter &amp; marketing emails</td>
+                  <td>Email address</td>
+                  <td><strong>Consent</strong> (you sign up voluntarily; you can unsubscribe at any time)</td>
+                </tr>
+                <tr>
+                  <td>Booking a discovery call</td>
+                  <td>Name, email, time slot</td>
+                  <td><strong>Contract</strong> (pre-contractual steps at your request)</td>
+                </tr>
+                <tr>
+                  <td>Storing your cookie preferences</td>
+                  <td>Consent choice in localStorage</td>
+                  <td><strong>Legitimate interest</strong> (to remember your choice and avoid asking every visit)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- 4. Who I share it with -->
+            <h2>4. Who I share your data with</h2>
+            <p>I do not sell your data. I share it only with the service providers listed below, who act as data processors on my behalf:</p>
+            <ul>
+              <li><strong>Formspree</strong> (formspree.io) &mdash; processes contact form submissions and forwards them to my inbox. <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree Privacy Policy</a></li>
+              <li><strong>Kit (ConvertKit)</strong> (kit.com) &mdash; stores and manages email subscriber data for my newsletter. <a href="https://kit.com/privacy" target="_blank" rel="noopener noreferrer">Kit Privacy Policy</a></li>
+              <li><strong>Calendly</strong> (calendly.com) &mdash; handles booking and scheduling for discovery calls. <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">Calendly Privacy Policy</a></li>
+              <li><strong>GitHub Pages</strong> &mdash; hosts this website. <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a></li>
+            </ul>
+            <p>I may also be required to disclose data to law enforcement or regulatory authorities if required by law.</p>
+
+            <!-- 5. International transfers -->
+            <h2>5. International data transfers</h2>
+            <p>Formspree, Kit, and Calendly are US-based companies. When your data is transferred to the United States, these transfers are made under standard contractual clauses (SCCs) or other transfer mechanisms approved under the EU GDPR. Please refer to each provider's privacy policy for details.</p>
+
+            <!-- 6. Retention -->
+            <h2>6. How long I keep your data</h2>
+            <ul>
+              <li><strong>Contact form enquiries:</strong> I keep email correspondence for up to 2 years after our last interaction, or until you ask me to delete it.</li>
+              <li><strong>Newsletter subscribers:</strong> Your email is kept until you unsubscribe. I also periodically remove inactive subscribers.</li>
+              <li><strong>Booking records:</strong> Calendly retains booking data in accordance with <a href="https://calendly.com/privacy" target="_blank" rel="noopener noreferrer">their policy</a>.</li>
+              <li><strong>Cookie preferences:</strong> Stored in your browser's localStorage until you clear it or change your preferences.</li>
+            </ul>
+
+            <!-- 7. Your rights -->
+            <h2>7. Your rights under GDPR</h2>
+            <p>As a data subject in the EU/EEA, you have the following rights:</p>
+
+            <div class="cookie-table-wrapper">
+              <table class="cookie-table">
+                <thead>
+                  <tr><th>Right</th><th>What it means</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Access</strong></td><td>Request a copy of the personal data I hold about you.</td></tr>
+                  <tr><td><strong>Rectification</strong></td><td>Ask me to correct inaccurate or incomplete data.</td></tr>
+                  <tr><td><strong>Erasure</strong></td><td>Ask me to delete your data ("right to be forgotten"), where there is no overriding reason to keep it.</td></tr>
+                  <tr><td><strong>Portability</strong></td><td>Receive your data in a structured, commonly used, machine-readable format.</td></tr>
+                  <tr><td><strong>Objection</strong></td><td>Object to processing based on legitimate interests.</td></tr>
+                  <tr><td><strong>Restriction</strong></td><td>Ask me to restrict how I use your data while a dispute is resolved.</td></tr>
+                  <tr><td><strong>Withdraw consent</strong></td><td>Withdraw any consent you have given at any time, without affecting the lawfulness of prior processing.</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 8. How to exercise rights -->
+            <h2>8. How to exercise your rights</h2>
+            <p>To exercise any of the rights above, please contact me at: <a href="mailto:hello@kristinabachova.com">hello@kristinabachova.com</a></p>
+            <p>I will respond within 30 days. There is no charge for making a request. If your request is complex or numerous, I may extend the response period by a further two months, and I will let you know.</p>
+            <p>To unsubscribe from my newsletter, use the unsubscribe link in any email I send, or contact me directly.</p>
+            <p>To change your cookie preferences on this website, use the <strong>Cookie Settings</strong> link in the footer of this page.</p>
+
+            <!-- 9. Cookies -->
+            <h2>9. Cookies and similar technologies</h2>
+            <p>This site uses cookies and browser localStorage. No non-essential cookies are set before you give consent.</p>
+
+            <div class="cookie-table-wrapper">
+              <table class="cookie-table">
+                <thead>
+                  <tr>
+                    <th>Name / Key</th>
+                    <th>Provider</th>
+                    <th>Purpose</th>
+                    <th>Duration</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>kb_cookie_consent</code></td>
+                    <td>This website</td>
+                    <td>Stores your cookie consent preferences (which categories you accepted)</td>
+                    <td>Until cleared by you</td>
+                    <td>localStorage (not a cookie)</td>
+                    <td>Strictly Necessary</td>
+                  </tr>
+                  <tr>
+                    <td>Various Formspree session tokens</td>
+                    <td>Formspree</td>
+                    <td>CSRF protection and spam prevention for the contact form</td>
+                    <td>Session</td>
+                    <td>Cookie</td>
+                    <td>Strictly Necessary</td>
+                  </tr>
+                  <tr>
+                    <td>Various Calendly cookies</td>
+                    <td>Calendly</td>
+                    <td>Scheduling functionality, session management, and usage analytics within the booking widget</td>
+                    <td>Up to 2 years</td>
+                    <td>Cookie (persistent)</td>
+                    <td>Functional</td>
+                  </tr>
+                  <tr>
+                    <td>Kit embed session</td>
+                    <td>Kit (ConvertKit)</td>
+                    <td>Displays and processes the newsletter sign-up form</td>
+                    <td>Session / persistent</td>
+                    <td>Cookie</td>
+                    <td>Marketing</td>
+                  </tr>
+                  <tr>
+                    <td><code>_ga</code>, <code>_gid</code>, <code>_ga_*</code></td>
+                    <td>Google Analytics</td>
+                    <td>Website analytics (not currently active)</td>
+                    <td>Up to 2 years</td>
+                    <td>Cookie (persistent)</td>
+                    <td>Analytics</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>You can manage your cookie preferences at any time using the <strong>Cookie Settings</strong> link in the footer. You can also clear cookies and localStorage through your browser settings.</p>
+
+            <!-- 10. Complaint -->
+            <h2>10. Right to lodge a complaint</h2>
+            <p>If you believe I have not handled your personal data correctly, you have the right to lodge a complaint with the Portuguese data protection supervisory authority:</p>
+            <p>
+              <strong>CNPD &mdash; Comiss&atilde;o Nacional de Prote&ccedil;&atilde;o de Dados</strong><br>
+              Website: <a href="https://www.cnpd.pt" target="_blank" rel="noopener noreferrer">www.cnpd.pt</a><br>
+              Address: Rua de S&atilde;o Bento, 148&ndash;3&ordm;, 1200-821 Lisboa, Portugal
+            </p>
+            <p>I would, however, appreciate the opportunity to address your concerns directly before you contact the supervisory authority. Please reach out to me first at <a href="mailto:hello@kristinabachova.com">hello@kristinabachova.com</a>.</p>
+
+            <!-- 11. Third-party links -->
+            <h2>11. Third-party links</h2>
+            <p>This site may contain links to external websites (e.g. LinkedIn, GitHub). I am not responsible for the privacy practices of those sites. Please review their privacy policies directly.</p>
+
+            <!-- 12. Changes -->
+            <h2>12. Changes to this policy</h2>
+            <p>I may update this policy from time to time. The date at the top of this page always reflects the most recent revision. For significant changes, I will update the date and, where appropriate, notify subscribers.</p>
+
+            <p class="policy-meta" style="margin-top: 40px; margin-bottom: 0;">
+              Questions? Email me at <a href="mailto:hello@kristinabachova.com">hello@kristinabachova.com</a>
+            </p>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
   </main>
 
   <!-- ===== FOOTER ===== -->
@@ -1443,11 +1690,106 @@ CALCULATE (
         <a href="#about">About</a>
         <a href="#resources">Resources</a>
         <a href="#contact">Contact</a>
+        <a href="#privacy-policy">Privacy &amp; Cookie Policy</a>
+        <button class="footer__consent-link" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Cookie Settings</button>
       </nav>
-      <p class="footer__copy">&copy; 2025 Kristina Bachová. All rights reserved.</p>
+      <p class="footer__copy">&copy; 2025 Kristina Bach&oacute;v&aacute;. All rights reserved.</p>
     </div>
   </footer>
 
   <script src="script.js"></script>
+
+  <!-- ===== COOKIE CONSENT BANNER ===== -->
+  <!-- hidden by default; shown by cookie-consent.js on first visit -->
+  <div id="cookie-banner" class="cookie-banner" role="region" aria-label="Cookie consent" hidden>
+    <div class="cookie-banner__inner container">
+      <div class="cookie-banner__content">
+        <p class="cookie-banner__text">
+          This site uses cookies. Strictly necessary ones keep the site running; optional ones (Calendly booking widget, newsletter sign-up) only load if you accept them.
+          <a href="#privacy-policy" class="cookie-banner__link">Privacy &amp; Cookie Policy</a>
+        </p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn--ghost btn--sm js-cookie-manage">Manage preferences</button>
+        <button class="btn btn--secondary btn--sm js-cookie-reject-all">Reject non-essential</button>
+        <button class="btn btn--primary btn--sm js-cookie-accept-all">Accept all</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COOKIE PREFERENCES MODAL ===== -->
+  <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title" hidden>
+    <div class="cookie-modal__box">
+      <div class="cookie-modal__header">
+        <h2 id="cookie-modal-title" class="cookie-modal__title">Cookie Preferences</h2>
+        <button id="cookie-close-prefs" class="cookie-modal__close" aria-label="Close preferences">&times;</button>
+      </div>
+      <p class="cookie-modal__intro">
+        Choose which cookies you allow. You can change your preferences at any time via the "Cookie Settings" link in the footer.
+        See the full <a href="#privacy-policy" onclick="document.getElementById('cookie-modal').hidden=true; document.body.style.overflow='';">Privacy &amp; Cookie Policy</a>.
+      </p>
+      <div class="cookie-modal__body">
+
+        <!-- Strictly Necessary -->
+        <div class="cookie-category">
+          <div class="cookie-category__header">
+            <div>
+              <p class="cookie-category__name">Strictly Necessary</p>
+              <p class="cookie-category__desc">Essential for the site to function — form submissions, security, and storing your cookie preferences. Cannot be disabled.</p>
+            </div>
+            <span class="cookie-toggle--always-on" aria-label="Always enabled">Always on</span>
+          </div>
+        </div>
+
+        <!-- Functional -->
+        <div class="cookie-category">
+          <div class="cookie-category__header">
+            <div>
+              <p class="cookie-category__name">Functional</p>
+              <p class="cookie-category__desc">Enables the Calendly booking widget so you can book a discovery call directly on this page. Calendly may set its own cookies for scheduling.</p>
+            </div>
+            <label class="cookie-toggle" for="consent-functional" aria-label="Toggle functional cookies">
+              <input type="checkbox" id="consent-functional" class="cookie-toggle__input">
+              <span class="cookie-toggle__slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="cookie-category">
+          <div class="cookie-category__header">
+            <div>
+              <p class="cookie-category__name">Analytics</p>
+              <p class="cookie-category__desc">Helps me understand how visitors use the site (e.g. Google Analytics). Analytics are not currently active — this toggle is here for when they are added.</p>
+            </div>
+            <label class="cookie-toggle" for="consent-analytics" aria-label="Toggle analytics cookies">
+              <input type="checkbox" id="consent-analytics" class="cookie-toggle__input">
+              <span class="cookie-toggle__slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Marketing -->
+        <div class="cookie-category">
+          <div class="cookie-category__header">
+            <div>
+              <p class="cookie-category__name">Marketing</p>
+              <p class="cookie-category__desc">Loads the newsletter sign-up form (Kit/ConvertKit) on the Resources page. Required if you want to subscribe to Power BI tips &amp; insights.</p>
+            </div>
+            <label class="cookie-toggle" for="consent-marketing" aria-label="Toggle marketing cookies">
+              <input type="checkbox" id="consent-marketing" class="cookie-toggle__input">
+              <span class="cookie-toggle__slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="cookie-modal__footer">
+        <button class="btn btn--secondary btn--sm js-cookie-reject-all">Reject non-essential</button>
+        <button id="cookie-save-prefs" class="btn btn--primary btn--sm">Save preferences</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

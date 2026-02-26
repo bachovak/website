@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact', 'article-fabric', 'article-coe-setup', 'article-dax-functions', 'article-best-practices'];
+  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact', 'article-fabric', 'article-coe-setup', 'article-dax-functions', 'article-best-practices', 'privacy-policy'];
 
   var scrollTargets = {
     'health-check': 'pkg-health-check',
@@ -156,6 +156,13 @@
         valid = false;
       }
 
+      // Validate consent checkbox (GDPR requirement — must be checked)
+      var consentInput = document.getElementById('consent-data');
+      if (consentInput && !consentInput.checked) {
+        consentInput.closest('.form-group').classList.add('has-error');
+        valid = false;
+      }
+
       if (valid) {
         var submitBtn = form.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
@@ -191,6 +198,14 @@
         input.closest('.form-group').classList.remove('has-error');
       });
     });
+
+    // Clear error when consent checkbox is ticked
+    var consentChk = document.getElementById('consent-data');
+    if (consentChk) {
+      consentChk.addEventListener('change', function () {
+        consentChk.closest('.form-group').classList.remove('has-error');
+      });
+    }
   }
 
   /* ===== CTA & INTERNAL LINK HANDLING ===== */
