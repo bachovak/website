@@ -91,10 +91,29 @@
     }
     footer a:hover { color: #F0B429; }
 
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       .topnav { padding: 0 20px; }
       .topnav__logo { font-size: 16px; }
-      .footer { padding: 24px 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
+
+      .page-content { padding: 1.5rem 1rem; }
+
+      .card-inner { padding: 1.5rem 1.25rem 1.25rem; }
+      .card-footer { padding: 0.75rem 1.25rem 1.25rem; }
+
+      .card-title { font-size: 1.35rem; }
+
+      .visuals { grid-template-columns: 1fr; }
+
+      .outcome { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+      .stack-items { flex-wrap: wrap; gap: 0.5rem; }
+
+      footer {
+        padding: 24px 20px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
     }
 
     .card-wrapper {
