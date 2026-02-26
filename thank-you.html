@@ -363,8 +363,9 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Kristina Bachová &nbsp;·&nbsp; <a href="https://bachovak.github.io/website/">Back to website</a></p>
+        <p>&copy; <span id="ty-year">2025</span> Kristina Bachová &nbsp;·&nbsp; <a href="https://bachovak.github.io/website/">Back to website</a></p>
     </footer>
 
+<script>document.getElementById("ty-year").textContent=new Date().getFullYear();</script>
 </body>
 </html>
