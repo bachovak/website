@@ -46,6 +46,9 @@
   box-sizing: border-box;
 }
 
+/* Ensure [hidden] always wins over author display rules (e.g. display:flex) */
+[hidden] { display: none !important; }
+
 :root {
   --colour-primary:    #D97706;
   --colour-accent:     #EA580C;
