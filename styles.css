@@ -1567,6 +1567,12 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 
+/* Reset margin-top that .btn--secondary inherits from service card context */
+.cookie-banner__actions .btn,
+.cookie-modal__footer .btn {
+  margin-top: 0;
+}
+
 .btn--ghost {
   background: transparent;
   color: rgba(255,255,255,0.7);
