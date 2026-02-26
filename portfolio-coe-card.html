@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoE Setup — Kristina Bachová</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:      #1C1917;
+      --primary:   #D97706;
+      --accent:    #EA580C;
+      --mid:       #92400E;
+      --bg:        #FAF7F5;
+      --card:      #FFFFFF;
+      --text:      #44403C;
+      --muted:     #78716C;
+      --border:    #E7E5E4;
+      --primary-lt:#F0B429;
+      --pale:      rgba(217,119,6,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--mid); }
+
+    /* ── Top nav ── */
+    .topnav {
+      background: var(--dark);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topnav__logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .topnav__logo:hover { color: #FFFFFF; }
+
+    .topnav__back {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+    .topnav__back:hover { color: var(--primary-lt); }
+
+    /* ── Page layout ── */
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    /* ── Category label ── */
+    .category {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--pale);
+      padding: 0.35rem 0.75rem;
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .category::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    /* ── Main card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      animation: fadeUp 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-lt) 100%);
+    }
+
+    .card-inner {
+      padding: 2.5rem 2.75rem 2.25rem;
+    }
+
+    /* ── Header ── */
+    .card-header { margin-bottom: 1.75rem; }
+
+    .card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      line-height: 1.25;
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .client-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      font-weight: 400;
+    }
+
+    .client-tag strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 36px;
+      height: 2px;
+      background: var(--primary);
+      margin: 1.5rem 0;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text);
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Deliverables ── */
+    .deliverables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .deliverable-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.3rem 0.65rem;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Visuals ── */
+    .visuals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .visual-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem 1.25rem 1rem;
+    }
+
+    /* ── Tier diagram ── */
+    .tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tier {
+      border-radius: 3px;
+      padding: 0.6rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      animation: slideIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .tier:nth-child(1) { animation-delay: 0.3s; }
+    .tier:nth-child(2) { animation-delay: 0.45s; }
+    .tier:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .tier-viewer { background: #F3F0EB; border-left: 3px solid #C5BFB8; }
+    .tier-pro    { background: #FEF3C7; border-left: 3px solid var(--primary); }
+    .tier-team   { background: var(--dark); border-left: 3px solid var(--primary); }
+
+    .tier-name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tier-viewer .tier-name { color: var(--muted); }
+    .tier-pro .tier-name    { color: var(--mid); }
+    .tier-team .tier-name   { color: var(--primary); }
+
+    .tier-desc {
+      font-size: 0.7rem;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+    .tier-viewer .tier-desc { color: var(--muted); }
+    .tier-pro .tier-desc    { color: var(--text); }
+    .tier-team .tier-desc   { color: rgba(255,255,255,0.6); }
+
+    /* ── Pipeline diagram ── */
+    .pipeline { display: flex; flex-direction: column; gap: 0; }
+
+    .pipe-step {
+      display: flex;
+      align-items: stretch;
+      gap: 0.75rem;
+      animation: slideIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .pipe-step:nth-child(1) { animation-delay: 0.3s; }
+    .pipe-step:nth-child(2) { animation-delay: 0.45s; }
+    .pipe-step:nth-child(3) { animation-delay: 0.6s; }
+
+    .pipe-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 20px;
+      flex-shrink: 0;
+    }
+
+    .pipe-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.6rem;
+    }
+
+    .pipe-line {
+      width: 2px;
+      flex: 1;
+      min-height: 12px;
+      margin: 2px 0;
+    }
+
+    .pipe-step:last-child .pipe-line { display: none; }
+
+    .pipe-dev  .pipe-dot  { background: #6ea8d0; }
+    .pipe-test .pipe-dot  { background: var(--primary); }
+    .pipe-prod .pipe-dot  { background: #5ab882; }
+
+    .pipe-dev  .pipe-line { background: linear-gradient(#6ea8d0, var(--primary)); }
+    .pipe-test .pipe-line { background: linear-gradient(var(--primary), #5ab882); }
+
+    .pipe-box {
+      flex: 1;
+      border-radius: 3px;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pipe-dev  .pipe-box { background: #EAF3FA; border: 1px solid #B8D8EE; }
+    .pipe-test .pipe-box { background: #FEF3C7; border: 1px solid #FCD34D; }
+    .pipe-prod .pipe-box { background: #ECFDF5; border: 1px solid #6EE7B7; }
+
+    .pipe-env {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.15rem;
+    }
+
+    .pipe-dev  .pipe-env { color: #3a7aaa; }
+    .pipe-test .pipe-env { color: var(--mid); }
+    .pipe-prod .pipe-env { color: #065F46; }
+
+    .pipe-rules {
+      font-size: 0.67rem;
+      color: var(--muted);
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    /* ── Outcome block ── */
+    .outcome {
+      background: var(--dark);
+      color: #FAF7F5;
+      border-radius: 4px;
+      padding: 1.4rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .outcome::after {
+      content: '';
+      position: absolute;
+      right: -20px; top: -20px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(217,119,6,0.15);
+    }
+
+    .outcome-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+
+    .outcome-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .outcome-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+    }
+
+    .outcome-text strong { font-weight: 600; color: #ffffff; }
+
+    /* ── Card footer ── */
+    .card-footer {
+      padding: 1rem 2.75rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stack-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .stack-items { display: flex; gap: 1rem; align-items: center; }
+
+    .stack-item { font-size: 0.78rem; color: var(--text); font-weight: 400; }
+
+    .stack-dot {
+      width: 3px; height: 3px;
+      background: var(--border);
+      border-radius: 50%;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark);
+      padding: 32px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer p {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      color: var(--primary);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+    footer a:hover { color: var(--primary-lt); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .topnav { padding: 0 20px; }
+      .topnav__logo { font-size: 16px; }
+      .page-content { padding: 40px 16px 60px; }
+      .card-inner { padding: 1.75rem 1.25rem 1.5rem; }
+      .card-footer { padding: 1rem 1.25rem 1.25rem; }
+      .visuals { grid-template-columns: 1fr; }
+      footer { padding: 28px 20px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<nav class="topnav">
+  <a href="./" class="topnav__logo">Kristina Bachová</a>
+  <a href="./#portfolio" class="topnav__back">← Back to portfolio</a>
+</nav>
+
+<!-- ── PAGE CONTENT ── -->
+<main class="page-content">
+
+  <div class="category">CoE &amp; Governance</div>
+
+  <div class="card">
+    <div class="card-inner">
+
+      <div class="card-header">
+        <h2 class="card-title">Power BI Centre of<br>Excellence</h2>
+        <span class="client-tag">Client: <strong>Global Medical Devices Company</strong></span>
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="card-description">
+        Designed a Power BI Centre of Excellence end-to-end — governance framework, tiered best practice
+        guidelines for viewers, Pro developers, and BI team developers, training programme, and workspace
+        architecture. Delivered the governance foundation: a SharePoint-based CoE hub with role-specific
+        best practice guides, and contributed workspace standards covering naming conventions,
+        DEV/Test/Prod environments, and premium capacity efficiency rules as part of the wider BI team.
+      </p>
+
+      <div class="deliverables">
+        <span class="deliverable-tag">Governance Framework</span>
+        <span class="deliverable-tag">Tiered Best Practice Guides</span>
+        <span class="deliverable-tag">SharePoint CoE Hub</span>
+        <span class="deliverable-tag">Workspace Standards</span>
+        <span class="deliverable-tag">DEV/Test/Prod Architecture</span>
+        <span class="deliverable-tag">Premium Capacity Rules</span>
+      </div>
+
+      <div class="visuals">
+
+        <!-- Tier diagram -->
+        <div class="visual-block">
+          <div class="section-label">User Governance Tiers</div>
+          <div class="tier-list">
+            <div class="tier tier-viewer">
+              <span class="tier-name">Viewer</span>
+              <span class="tier-desc">Consume published reports. No edit access. Sensitivity label awareness.</span>
+            </div>
+            <div class="tier tier-pro">
+              <span class="tier-name">Pro Developer</span>
+              <span class="tier-desc">Build in DEV workspaces. Follow naming & model standards. Peer review required.</span>
+            </div>
+            <div class="tier tier-team">
+              <span class="tier-name">BI Team Developer</span>
+              <span class="tier-desc">Own PROD deployments. Manage capacity, RLS, certified datasets & CoE standards.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEV/Test/Prod pipeline -->
+        <div class="visual-block">
+          <div class="section-label">Workspace Pipeline</div>
+          <div class="pipeline">
+
+            <div class="pipe-step pipe-dev">
+              <div class="pipe-connector">
+                <div class="pipe-dot"></div>
+                <div class="pipe-line"></div>
+              </div>
+              <div class="pipe-box">
+                <div class="pipe-env">DEV</div>
+                <div class="pipe-rules">Active development & iteration. Pro license only. No shared capacity.</div>
+              </div>
+            </div>
+
+            <div class="pipe-step pipe-test">
+              <div class="pipe-connector">
+                <div class="pipe-dot"></div>
+                <div class="pipe-line"></div>
+              </div>
+              <div class="pipe-box">
+                <div class="pipe-env">Test</div>
+                <div class="pipe-rules">UAT & performance review. Peer sign-off required before promotion.</div>
+              </div>
+            </div>
+
+            <div class="pipe-step pipe-prod">
+              <div class="pipe-connector">
+                <div class="pipe-dot"></div>
+                <div class="pipe-line"></div>
+              </div>
+              <div class="pipe-box">
+                <div class="pipe-env">Production</div>
+                <div class="pipe-rules">Premium capacity. BI team governed. Certified datasets & RLS enforced.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="outcome">
+        <div class="outcome-icon">↗</div>
+        <div class="outcome-content">
+          <div class="outcome-label">Outcome</div>
+          <div class="outcome-text">
+            A structured governance foundation adopted by the BI team — clear standards that
+            <strong>reduced ambiguity</strong> and enabled <strong>scalable self-service reporting</strong>.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <span class="stack-label">Stack</span>
+      <div class="stack-items">
+        <span class="stack-item">Power BI</span>
+        <div class="stack-dot"></div>
+        <span class="stack-item">Azure AD</span>
+        <div class="stack-dot"></div>
+        <span class="stack-item">Sensitivity Labels</span>
+        <div class="stack-dot"></div>
+        <span class="stack-item">SharePoint</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>CoE &amp; Governance · Power BI</p>
+  <a href="./">kristinabachova.com</a>
+</footer>
+
+</body>
+</html>
