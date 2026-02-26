@@ -432,7 +432,9 @@
     padding: 28px 24px;
     transition: background 0.2s;
     position: relative;
-    cursor: default;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   .package-card:hover {
@@ -444,42 +446,55 @@
     font-size: 18px;
     font-weight: 400;
     color: var(--primary);
+    margin-bottom: 10px;
     line-height: 1.2;
   }
 
-  /* ── Tooltip ── */
   .package-desc {
-    position: absolute;
-    bottom: calc(100% + 12px);
-    left: 50%;
-    transform: translateX(-50%) translateY(6px);
-    width: 240px;
-    background: #FFFFFF;
-    color: #44403C;
     font-size: 13px;
-    line-height: 1.65;
-    padding: 14px 16px;
-    border-radius: 4px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease;
-    z-index: 20;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
     max-width: none;
   }
 
-  /* Arrow pointing down toward the card */
-  .package-desc::after {
-    content: '';
+  /* ── Package tooltip ── */
+  .package-card::before {
+    content: attr(data-tip);
     position: absolute;
-    top: 100%;
+    bottom: calc(100% + 10px);
     left: 50%;
-    transform: translateX(-50%);
-    border: 7px solid transparent;
-    border-top-color: #FFFFFF;
+    transform: translateX(-50%) translateY(5px);
+    background: #FFFFFF;
+    color: #44403C;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 7px 12px;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 30;
   }
 
-  .package-card:hover .package-desc {
+  .package-card::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    border: 6px solid transparent;
+    border-top-color: #FFFFFF;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 30;
+  }
+
+  .package-card:hover::before,
+  .package-card:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
@@ -600,22 +615,8 @@
 
     .packages-grid { grid-template-columns: 1fr; }
 
-    /* Show desc inline on mobile — no hover available */
-    .package-desc {
-      position: static;
-      transform: none;
-      width: auto;
-      background: transparent;
-      color: rgba(255,255,255,0.5);
-      font-size: 13px;
-      padding: 0;
-      margin-top: 10px;
-      box-shadow: none;
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .package-desc::after { display: none; }
-    .package-name { margin-bottom: 0; }
+    .package-card::before,
+    .package-card::after { display: none; }
 
     .page-row { grid-template-columns: 1fr; gap: 12px; }
     .page-name { padding-right: 0; }
@@ -871,22 +872,22 @@
     </p>
 
     <div class="packages-grid">
-      <div class="package-card">
+      <a href="./#services/health-check" class="package-card" data-tip="1–2 weeks · from €1.5k">
         <div class="package-name">BI Health Check</div>
         <div class="package-desc">A structured assessment of your current reporting setup — what's working, what's at risk, and what it's costing you.</div>
-      </div>
-      <div class="package-card">
+      </a>
+      <a href="./#services/stabilisation" class="package-card" data-tip="4–6 weeks · from €4k">
         <div class="package-name">BI Stabilisation</div>
         <div class="package-desc">Fix broken reports, unreliable data pipelines, and governance gaps. Get your existing investment working properly.</div>
-      </div>
-      <div class="package-card">
+      </a>
+      <a href="./#contact" class="package-card" data-tip="Get in touch to discuss">
         <div class="package-name">Template Deployment</div>
         <div class="package-desc">This Hotel BI template configured, branded and deployed for your property — connected to your Opera exports and ready to use.</div>
-      </div>
-      <div class="package-card">
+      </a>
+      <a href="./#services/fractional" class="package-card" data-tip="Ongoing · from €1k / month">
         <div class="package-name">Fractional BI Ops</div>
         <div class="package-desc">Ongoing BI operations support on a retainer basis — your reports stay accurate, maintained and evolving without a full-time hire.</div>
-      </div>
+      </a>
     </div>
 
     <div class="cta-row">
