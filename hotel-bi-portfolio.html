@@ -553,13 +553,32 @@
   .hero-meta     { animation-delay: 0.3s; }
 
   @media (max-width: 768px) {
-    .topnav { padding: 0 24px; }
-    .hero, .services { padding: 56px 24px; }
-    .embed-section { padding: 0 24px 56px; }
-    .container { padding: 0 24px; }
-    footer { padding: 28px 24px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .topnav { padding: 0 20px; }
+    .topnav__logo { font-size: 16px; }
+    .topnav__back { font-size: 12px; }
+
+    .hero, .services { padding: 48px 20px; }
+    .embed-section { padding: 0 20px 48px; }
+    .container { padding: 0 20px; }
+
+    section { padding: 48px 0; }
+
+    .hero-meta { gap: 24px; }
+
+    .sources-grid { grid-template-columns: 1fr; }
+
+    .packages-grid { grid-template-columns: 1fr; }
+
     .page-row { grid-template-columns: 1fr; gap: 12px; }
     .page-name { padding-right: 0; }
+
+    .stack-row { gap: 8px; }
+    .stack-badge { font-size: 11px; padding: 6px 12px; }
+
+    .cta-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .btn-primary { width: 100%; text-align: center; }
+
+    footer { padding: 28px 20px; flex-direction: column; gap: 12px; align-items: flex-start; }
   }
 </style>
 </head>
