@@ -862,6 +862,67 @@ ul { list-style: none; }
   color: var(--colour-dark);
 }
 
+/* ===== TEMPLATE SHOWCASE ===== */
+.template-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.template-showcase__title {
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  margin: 12px 0 16px;
+}
+
+.template-showcase__desc {
+  font-size: 0.95rem;
+  color: var(--colour-text-muted);
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.template-showcase__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.template-showcase__features li {
+  font-size: 0.9rem;
+  color: var(--colour-text-muted);
+  padding-left: 20px;
+  position: relative;
+}
+
+.template-showcase__features li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--colour-primary);
+}
+
+.pbi-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 62.25%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.pbi-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 /* ===== SKILLS MATRIX ===== */
 .skills-matrix {
   display: grid;
@@ -1345,6 +1406,11 @@ ul { list-style: none; }
     grid-template-columns: 1fr;
     max-width: 480px;
     margin: 0 auto;
+  }
+
+  .template-showcase {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .skills-matrix {
