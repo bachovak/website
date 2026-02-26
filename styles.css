@@ -954,10 +954,40 @@ ul { list-style: none; }
 }
 
 /* ===== ABOUT ===== */
+.about-intro {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 4px;
+  display: block;
+  position: sticky;
+  top: 84px;
+}
+
 .about-story p {
   font-size: 1.05rem;
   margin-bottom: 20px;
   line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .about-photo {
+    max-width: 200px;
+    position: static;
+    aspect-ratio: 1 / 1;
+  }
 }
 
 .languages {
