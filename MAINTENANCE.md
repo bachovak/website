@@ -1,6 +1,6 @@
 # Website Maintenance Documentation
 
-**Site:** https://bachovak.github.io/website/
+**Site:** https://kristinabachova.com
 **GitHub repo:** https://github.com/bachovak/website
 **Owner:** Kristina Bachová — freelance Power BI specialist
 
@@ -64,7 +64,8 @@ The site is hosted on **GitHub Pages** — pushing to the `main` branch on GitHu
 
 | | |
 |---|---|
-| **URL** | https://bachovak.github.io/website/ |
+| **Live URL** | https://kristinabachova.com |
+| **GitHub Pages URL** | https://bachovak.github.io/website/ (redirects to custom domain) |
 | **Repo** | https://github.com/bachovak/website |
 | **Branch** | `main` |
 | **Deploy trigger** | Every push to `main` auto-deploys (no action needed) |
@@ -73,15 +74,16 @@ To update the site: commit changes and push to `main`. GitHub Pages picks up the
 
 ---
 
-### 3.2 Google Fonts (Typography)
+### 3.2 Self-hosted fonts (Typography)
 
 | | |
 |---|---|
 | **Heading font** | Playfair Display (weights: 400, 600, 700) |
 | **Body font** | Source Sans 3 (weights: 300, 400, 500, 600, 700) |
-| **Loaded in** | `index.html` `<head>` and `thank-you.html` `<head>` |
+| **Format** | `.woff2` files stored in the `fonts/` directory |
+| **Loaded via** | `@font-face` declarations in `styles.css` |
 
-No account required. If fonts need changing, update the `<link>` tag in the `<head>` of both HTML files and the CSS variables `--font-heading` and `--font-body` in `styles.css`.
+Fonts are self-hosted — no requests are made to Google servers. Both `index.html` and `thank-you.html` use the same `styles.css`, so fonts apply to both automatically. If fonts need changing, replace the `.woff2` files in `fonts/` and update the `@font-face` declarations and the `--font-heading` / `--font-body` CSS variables in `styles.css`.
 
 ---
 
@@ -94,7 +96,7 @@ No account required. If fonts need changing, update the `<link>` tag in the `<he
 | **Form UID** | `bb35d512cc` |
 | **Embed script** | `<script async data-uid="bb35d512cc" src="https://kristina-bachova.kit.com/bb35d512cc/index.js"></script>` |
 | **Placed on** | Resources page (inside `index.html`, search for `<!-- Kit form -->`) |
-| **Success redirect** | https://bachovak.github.io/website/thank-you.html |
+| **Success redirect** | https://kristinabachova.com/thank-you.html |
 
 The redirect URL is configured inside the Kit dashboard (not in code). To change the form: replace the `data-uid` and `src` UID in the embed script. To change the redirect: update it inside Kit → Forms → the form → Settings → Success.
 
@@ -209,7 +211,7 @@ Services page supports deep linking to specific packages:
 
 | URL | File | Purpose |
 |---|---|---|
-| `/website/thank-you.html` | `thank-you.html` | Post-subscription landing page. Linked from Kit as the redirect after signup. |
+| `https://kristinabachova.com/thank-you.html` | `thank-you.html` | Post-subscription landing page. Linked from Kit as the redirect after signup. |
 
 ---
 
@@ -271,7 +273,7 @@ git push
 ```
 
 GitHub Pages picks up the change within ~1 minute. The live URL is:
-`https://bachovak.github.io/website/`
+`https://kristinabachova.com`
 
 To verify deployment, check the **Actions** tab on the GitHub repo — a green tick means it's live.
 
