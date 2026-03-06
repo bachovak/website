@@ -648,21 +648,6 @@
         </div>
       </section>
 
-      <!-- Kit newsletter form — loads only after marketing cookie consent -->
-      <section class="section">
-        <div class="container container--narrow">
-          <!-- Placeholder shown until marketing cookies are accepted -->
-          <div id="kit-consent-placeholder" class="consent-placeholder">
-            <span class="consent-placeholder__icon">&#x2709;&#xfe0f;</span>
-            <p class="consent-placeholder__heading">Subscribe to Power BI tips &amp; insights</p>
-            <p class="consent-placeholder__text">The newsletter sign-up form requires <strong>Marketing cookies</strong> to load.<br>Accept marketing cookies to see it here.</p>
-            <button class="btn btn--secondary btn--sm" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Manage cookie settings</button>
-          </div>
-          <!-- Kit form renders here once marketing consent is given -->
-          <div id="kit-form-container" style="display:none;"></div>
-        </div>
-      </section>
-
 
     </div>
 
@@ -1043,6 +1028,21 @@
           <div class="article-footer">
             <a href="#resources" class="link--arrow">&larr; Back to all resources</a>
           </div>
+        </div>
+      </section>
+
+      <!-- Kit newsletter form — loads only after marketing cookie consent -->
+      <section class="section">
+        <div class="container container--narrow">
+          <!-- Placeholder shown until marketing cookies are accepted -->
+          <div id="kit-consent-placeholder" class="consent-placeholder">
+            <span class="consent-placeholder__icon">&#x2709;&#xfe0f;</span>
+            <p class="consent-placeholder__heading">Subscribe to Power BI tips &amp; insights</p>
+            <p class="consent-placeholder__text">The newsletter sign-up form requires <strong>Marketing cookies</strong> to load.<br>Accept marketing cookies to see it here.</p>
+            <button class="btn btn--secondary btn--sm" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Manage cookie settings</button>
+          </div>
+          <!-- Kit form renders here once marketing consent is given -->
+          <div id="kit-form-container" style="display:none;"></div>
         </div>
       </section>
 
