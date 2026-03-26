@@ -663,6 +663,18 @@ ul { list-style: none; }
   background: var(--colour-primary);
 }
 
+.service-card__body ul.addons li {
+  color: var(--colour-text-muted);
+  font-size: 0.9rem;
+}
+
+.service-card__body ul.addons li::before {
+  width: 4px;
+  height: 4px;
+  background: var(--colour-text-muted);
+  top: 11px;
+}
+
 /* Feature status icons */
 .service-card__features {
   display: flex;
