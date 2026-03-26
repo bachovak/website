@@ -1526,11 +1526,26 @@ CALCULATE (
             <p><strong>1. Load your model with a sanitisation review</strong></p>
             <p>Before anything reaches the AI, the agent scans your model file and strips sensitive metadata &mdash; database connection strings, file paths, email addresses, SharePoint URLs, and similar content. You see exactly what was found and what was masked. Nothing proceeds until you explicitly approve the clean version.</p>
 
+            <img src="images/pbi-agent/sanitisation-review.png" alt="Model Sanitisation Review screen showing 105 sensitive items found and masked before loading" class="article-image">
+            <p class="article-image__caption">The sanitisation review screen — you see exactly what was found and masked before anything is loaded into the agent.</p>
+
+            <img src="images/pbi-agent/sanitisation-items.png" alt="Expanded list of sanitised items showing masked connection strings and file paths" class="article-image">
+            <p class="article-image__caption">The expandable items list shows each masked value and what it was replaced with.</p>
+
             <p><strong>2. Explore your schema and understand dependencies</strong></p>
             <p>Once the model loads, a lineage graph is built automatically. You can select any table, column, or measure and see everything that depends on it. If you&rsquo;re about to change a column, the agent tells you exactly which measures would be affected. You know the blast radius before you touch anything.</p>
 
+            <img src="images/pbi-agent/impact-analysis.png" alt="Impact Analysis tab showing dependent measures for a selected column" class="article-image">
+            <p class="article-image__caption">Impact Analysis — select any table, column, or measure to see everything that depends on it.</p>
+
             <p><strong>3. Generate DAX with a human approval gate</strong></p>
             <p>You describe what you need. The agent checks your measure library first &mdash; if a similar measure already exists, it surfaces it and asks if you want to use it instead. If nothing matches, it generates DAX, validates it structurally and semantically, and presents it for your review. You approve it or reject it. Only approved measures are saved.</p>
+
+            <img src="images/pbi-agent/generate-measure.png" alt="Generate a Measure tab with the measure library visible on the right" class="article-image">
+            <p class="article-image__caption">The Generate a Measure tab — describe what you need in plain English, review the output, and approve or reject it.</p>
+
+            <img src="images/pbi-agent/interface.png" alt="Full agent interface showing the sidebar with model settings and sanitisation options" class="article-image">
+            <p class="article-image__caption">The full interface — model settings and sanitisation options in the sidebar, the main workspace on the right.</p>
 
             <p><strong>4. Build an institutional measure library</strong></p>
             <p>Every approved measure is saved to a persistent library with the original request, the DAX, how many attempts it took to generate, and a timestamp. Over time this becomes a searchable record of every measure your team has generated, which also feeds back into the duplicate detection.</p>

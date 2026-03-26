@@ -1224,6 +1224,22 @@ ul { list-style: none; }
   line-height: 1.7;
 }
 
+.article-image {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--colour-border);
+  margin: 32px 0;
+  display: block;
+}
+
+.article-image__caption {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--colour-muted);
+  margin-top: -24px;
+  margin-bottom: 32px;
+}
+
 .article-footer {
   margin-top: 48px;
   padding-top: 32px;
