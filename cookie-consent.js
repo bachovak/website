@@ -54,11 +54,14 @@
   function loadKit() {
     if (document.getElementById('kit-embed-script')) return;
 
-    // Reveal container, hide placeholder
-    var placeholder = document.getElementById('kit-consent-placeholder');
-    var container   = document.getElementById('kit-form-container');
-    if (placeholder) placeholder.style.display = 'none';
-    if (container)   container.style.removeProperty('display');
+    // Reveal containers, hide placeholders (handles all Kit form instances on the page)
+    [['kit-consent-placeholder', 'kit-form-container'],
+     ['kit-consent-placeholder-agent', 'kit-form-container-agent']].forEach(function (pair) {
+      var ph = document.getElementById(pair[0]);
+      var ct = document.getElementById(pair[1]);
+      if (ph) ph.style.display = 'none';
+      if (ct) ct.style.removeProperty('display');
+    });
 
     // Inject Kit embed script — Kit reads data-uid to know which form to render
     var script = document.createElement('script');
@@ -66,6 +69,7 @@
     script.setAttribute('data-uid', 'bb35d512cc');
     script.src   = 'https://kristina-bachova.kit.com/bb35d512cc/index.js';
     script.async = true;
+    var container = document.getElementById('kit-form-container');
     if (container) {
       container.appendChild(script);
     } else {

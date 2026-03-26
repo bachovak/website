@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'contact', 'article-fabric', 'article-coe-setup', 'article-dax-functions', 'article-best-practices', 'privacy-policy'];
+  const pages = ['home', 'services', 'portfolio', 'about', 'resources', 'tools', 'contact', 'article-fabric', 'article-coe-setup', 'article-dax-functions', 'article-best-practices', 'article-pbi-agent', 'privacy-policy'];
 
   var scrollTargets = {
     'health-check': 'pkg-health-check',

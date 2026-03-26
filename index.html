@@ -39,6 +39,7 @@
         <li><a href="#portfolio" class="nav__link" data-page="portfolio">Portfolio</a></li>
         <li><a href="#about" class="nav__link" data-page="about">About</a></li>
         <li><a href="#resources" class="nav__link" data-page="resources">Resources</a></li>
+        <li><a href="#tools" class="nav__link" data-page="tools">Tools</a></li>
         <li><a href="#contact" class="nav__link" data-page="contact">Contact</a></li>
       </ul>
     </div>
@@ -648,6 +649,33 @@
         </div>
       </section>
 
+
+    </div>
+
+    <!-- ==================== PAGE: TOOLS ==================== -->
+    <div class="page" id="page-tools">
+
+      <section class="page-header">
+        <div class="container">
+          <h1 class="page-header__title">Tools</h1>
+          <p class="page-header__intro">Things I built to make Power BI work better in the real world. Free to use, open source, and designed around governed workflows.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="articles-grid">
+
+            <article class="article-card">
+              <span class="badge badge--category">Power BI</span>
+              <h3 class="article-card__title">Power BI DAX Agent &mdash; Generate, Validate and Manage DAX Measures</h3>
+              <p class="article-card__desc">A locally-running agent that generates validated DAX using your actual model schema, detects duplicates before you create them, and shows you the full impact of any change before you make it.</p>
+              <a href="#article-pbi-agent" class="link--arrow">Read more &rarr;</a>
+            </article>
+
+          </div>
+        </div>
+      </section>
 
     </div>
 
@@ -1463,6 +1491,168 @@ CALCULATE (
 
     </div>
 
+    <!-- ==================== PAGE: ARTICLE — PBI AGENT ==================== -->
+    <div class="page" id="page-article-pbi-agent">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <a href="#tools" class="article-back">&larr; Back to Tools</a>
+          <span class="badge badge--category">Power BI</span>
+          <h1 class="page-header__title">I Built a Power BI DAX Agent &mdash; Here&rsquo;s Why, Who It&rsquo;s For, and How It&rsquo;s Different</h1>
+          <p class="page-header__intro">A locally-running agent designed around confidence over speed &mdash; with a sanitisation gate, human approval, duplicate detection, and impact analysis built in.</p>
+          <p class="page-header__meta"><time datetime="2026-03">March 2026</time></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+          <div class="article-body">
+
+            <p>I&rsquo;ve spent the last few weeks building something I kept wishing already existed. I&rsquo;m calling it the Power BI DAX Agent, and I&rsquo;ve made it free for anyone to use.</p>
+            <p>This article explains why I built it, who it is designed for, how it compares to other AI-powered approaches to Power BI development, and where it&rsquo;s heading next.</p>
+
+            <h2>Why I Built This</h2>
+            <p>The problem I kept running into wasn&rsquo;t with Power BI itself. It was with the context in which most companies use it.</p>
+            <p>In a mid-size company, there is usually one person who &ldquo;does Power BI.&rdquo; That person is not necessarily a dedicated BI developer. They are a finance manager who learned DAX from YouTube, or an ops analyst who built a dashboard that got promoted to the company&rsquo;s main reporting tool, or an IT generalist who maintains a growing semantic model alongside everything else they do.</p>
+            <p>These people face a specific and under-discussed problem: <strong>they need to change things without breaking things.</strong></p>
+            <p>They&rsquo;re not looking for ways to build faster. They&rsquo;re worried about what happens when they rename a column that fifteen measures depend on. They don&rsquo;t know if the measure they&rsquo;re about to create already exists under a slightly different name. They have no way of knowing the downstream impact of a change before they make it.</p>
+            <p>Existing AI tools for Power BI don&rsquo;t really solve this problem. Most of them are designed to make senior developers faster &mdash; which is valuable, but it&rsquo;s not the same thing.</p>
+            <p>So I built something designed around a different principle: <strong>confidence over speed.</strong></p>
+
+            <h2>What the Agent Actually Does</h2>
+            <p>The Power BI DAX Agent is a locally-running web application. You open it in your browser, point it at your Power BI model file, and describe the measure you need in plain English. The agent generates validated DAX using only your actual tables and columns, checks for duplicates, and asks for your approval before saving anything.</p>
+            <p>Here is the end-to-end flow:</p>
+
+            <p><strong>1. Load your model with a sanitisation review</strong></p>
+            <p>Before anything reaches the AI, the agent scans your model file and strips sensitive metadata &mdash; database connection strings, file paths, email addresses, SharePoint URLs, and similar content. You see exactly what was found and what was masked. Nothing proceeds until you explicitly approve the clean version.</p>
+
+            <p><strong>2. Explore your schema and understand dependencies</strong></p>
+            <p>Once the model loads, a lineage graph is built automatically. You can select any table, column, or measure and see everything that depends on it. If you&rsquo;re about to change a column, the agent tells you exactly which measures would be affected. You know the blast radius before you touch anything.</p>
+
+            <p><strong>3. Generate DAX with a human approval gate</strong></p>
+            <p>You describe what you need. The agent checks your measure library first &mdash; if a similar measure already exists, it surfaces it and asks if you want to use it instead. If nothing matches, it generates DAX, validates it structurally and semantically, and presents it for your review. You approve it or reject it. Only approved measures are saved.</p>
+
+            <p><strong>4. Build an institutional measure library</strong></p>
+            <p>Every approved measure is saved to a persistent library with the original request, the DAX, how many attempts it took to generate, and a timestamp. Over time this becomes a searchable record of every measure your team has generated, which also feeds back into the duplicate detection.</p>
+
+            <h2>Who This Is For</h2>
+            <p>The primary audience is anyone managing Power BI in a company of roughly 5 to 500 employees &mdash; particularly in EU markets where data governance and GDPR compliance are genuine daily concerns, not theoretical ones.</p>
+            <p>More specifically, it is designed for:</p>
+            <ul>
+              <li><strong>The solo BI person</strong> who owns the Power BI environment and needs a reliable assistant that works within guardrails, not around them</li>
+              <li><strong>Freelance Power BI consultants</strong> who work across multiple client environments and want a consistent, governed workflow for measure development</li>
+              <li><strong>Small BI teams</strong> where junior analysts are generating measures but a senior developer wants oversight before anything reaches the production model</li>
+              <li><strong>Companies in regulated industries</strong> &mdash; healthcare, financial services, legal &mdash; where every change to a reporting environment needs to be traceable and auditable</li>
+            </ul>
+            <p>That said, this is not limited to that audience. Any Power BI developer who values a governed workflow over an unconstrained one may find it useful &mdash; especially for client-facing or production environments where mistakes are expensive.</p>
+
+            <h2>How This Compares to MCP + Copilot and VS Code + Copilot</h2>
+            <p>This is the question I expect most from people who already use AI tools for Power BI development, so I want to address it directly.</p>
+
+            <h3>Microsoft&rsquo;s Power BI Modeling MCP Server</h3>
+            <p>Microsoft recently released a Power BI Modeling MCP Server that lets AI assistants like GitHub Copilot or Claude talk directly to a running Power BI Desktop instance. You can ask it to create measures, rename tables, build relationships, and refactor your model through natural conversation in VS Code or Claude Code.</p>
+            <p>This is genuinely impressive technology and I use it myself for exploratory work. But it is designed for a developer workflow, and it makes some assumptions that are not safe in a business context:</p>
+            <ul>
+              <li>It writes changes directly to your open model. There is an undo function, but there is no approval gate, no audit trail, and no blast radius analysis before a change is made.</li>
+              <li>It sends your full model schema to the AI &mdash; including connection strings, file paths, and RLS definitions &mdash; without a sanitisation step.</li>
+              <li>It requires Power BI Desktop to be open and running. It cannot work from a model file alone.</li>
+              <li>It has no persistent memory. Nothing is remembered between sessions. There is no measure library, no duplicate detection, no lineage graph.</li>
+            </ul>
+            <p>For a senior developer working on their own environment who knows what they are doing: MCP is fast and powerful. For a business context where multiple people touch a model and changes need to be traceable: it is missing the safety layer.</p>
+
+            <h3>VS Code + GitHub Copilot (without MCP)</h3>
+            <p>This is the more general version of the developer assistant workflow &mdash; using Copilot in VS Code to help write DAX, Power Query M code, or TMDL. It is useful for developers who are already comfortable in a code editor and want AI assistance inline.</p>
+            <p>The same considerations apply. This is a tool that makes developers faster. It does not address governance, impact analysis, or the non-technical user.</p>
+
+            <h3>Where the Power BI DAX Agent Sits</h3>
+            <p>The DAX Agent is not trying to compete with MCP for the developer use case. It is solving a different problem for a different audience.</p>
+
+            <div style="overflow-x: auto; margin: 24px 0;">
+              <table class="rights-table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Power BI DAX Agent</th>
+                    <th>MCP + Copilot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Designed for</td><td>Business context, governed workflow</td><td>Developer productivity</td></tr>
+                  <tr><td>User profile</td><td>Finance manager, solo BI person, consultant</td><td>Senior BI developer</td></tr>
+                  <tr><td>Requires VS Code</td><td>No &mdash; runs in a browser</td><td>Yes</td></tr>
+                  <tr><td>Sanitisation gate</td><td>Built in</td><td>Not included</td></tr>
+                  <tr><td>Human approval gate</td><td>Mandatory</td><td>Not included</td></tr>
+                  <tr><td>Audit trail</td><td>Full history</td><td>Session only</td></tr>
+                  <tr><td>Duplicate detection</td><td>Built in</td><td>Not included</td></tr>
+                  <tr><td>Lineage and impact analysis</td><td>Built in</td><td>Not included</td></tr>
+                  <tr><td>Works without Power BI Desktop open</td><td>Yes</td><td>No</td></tr>
+                  <tr><td>Persistent measure library</td><td>Yes</td><td>No</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="article-tip">The honest summary: if you are a senior BI developer who lives in VS Code and knows exactly what you are doing, MCP is probably a better fit for your daily workflow. If you are managing Power BI in a business context where changes need to be safe, traceable, and understandable to non-technical stakeholders &mdash; this is built for you.</div>
+
+            <h2>The Data Protection Question</h2>
+            <p>One question I get asked immediately whenever AI and Power BI are mentioned together is: what data actually leaves my machine?</p>
+            <p>This is the right question to ask, and I want to answer it precisely.</p>
+            <p>When you load a model into the agent, the following happens on your machine only:</p>
+            <ul>
+              <li>The raw model file is read from your local disk</li>
+              <li>The sanitisation scan runs locally &mdash; finding and masking connection strings, paths, emails, URLs, and any other sensitive metadata you have configured</li>
+              <li>You review the sanitisation report in your browser (which is running at localhost &mdash; your machine talking to itself)</li>
+              <li>You approve the clean version</li>
+            </ul>
+            <p>The first and only time anything leaves your machine is when you type a measure request and click Generate. At that point, the sanitised schema (table names, column names, measure names, data types, relationships) and your plain English request are sent to the Anthropic API.</p>
+            <p><strong>What never leaves your machine:</strong> actual data values, database connection strings, file paths, email addresses, RLS role definitions, and any other sensitive metadata the sanitiser has masked.</p>
+            <p>The agent runs locally. There is no cloud server receiving your files. If you are in a regulated industry or a GDPR-sensitive environment, the sanitisation gate is configurable &mdash; you can choose to also mask GUIDs and remove RLS definitions entirely before the model is reviewed.</p>
+
+            <h2>What&rsquo;s Still Being Built</h2>
+            <p>This is a working prototype, not a finished product. I am sharing it now because real-world feedback is more valuable than months of building in isolation.</p>
+            <p><strong>What is working today:</strong></p>
+            <ul>
+              <li>Model loading with sanitisation review and approval gate</li>
+              <li>DAX generation using your actual schema</li>
+              <li>Two-layer validation with automatic retry</li>
+              <li>Duplicate measure detection</li>
+              <li>Human approval gate before saving</li>
+              <li>Persistent measure library with search</li>
+              <li>Lineage graph with impact analysis</li>
+              <li>Model browser in the sidebar</li>
+              <li>Support for any model.bim file</li>
+            </ul>
+            <p><strong>What is still being built:</strong></p>
+            <ul>
+              <li>System A &mdash; a discovery and requirements agent that conducts a structured interview with business stakeholders and produces a semantic model design from scratch</li>
+              <li>System C &mdash; a full amendment protection layer with regression testing, so changes to existing measures can be validated against known-good baselines before deployment</li>
+              <li>Automatic deployment to Power BI via the REST API or XMLA endpoint</li>
+              <li>Hosted version for clients who cannot run a local install</li>
+              <li>Multi-user support with role-based access</li>
+            </ul>
+
+            <h2>Try It and Tell Me What&rsquo;s Missing</h2>
+            <p>The agent is free to use. You bring your own Anthropic API key &mdash; a month of typical usage costs a few euros.</p>
+            <p>Enter your email below and I&rsquo;ll send you the repository link and getting started guide directly to your inbox.</p>
+
+            <!-- Kit newsletter form — loads only after marketing cookie consent -->
+            <div id="kit-consent-placeholder-agent" class="consent-placeholder">
+              <span class="consent-placeholder__icon">&#x2709;&#xfe0f;</span>
+              <p class="consent-placeholder__heading">Get the repository link &amp; getting started guide</p>
+              <p class="consent-placeholder__text">The sign-up form requires <strong>Marketing cookies</strong> to load.<br>Accept marketing cookies to see it here.</p>
+              <button class="btn btn--secondary btn--sm" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Manage cookie settings</button>
+            </div>
+            <div id="kit-form-container-agent" style="display:none;"></div>
+
+          </div>
+
+          <div class="article-footer">
+            <a href="#tools" class="link--arrow">&larr; Back to all tools</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
     <!-- ==================== PAGE: PRIVACY & COOKIE POLICY ==================== -->
     <div class="page" id="page-privacy-policy">
 
@@ -1702,6 +1892,7 @@ CALCULATE (
         <a href="#portfolio">Portfolio</a>
         <a href="#about">About</a>
         <a href="#resources">Resources</a>
+        <a href="#tools">Tools</a>
         <a href="#contact">Contact</a>
         <a href="#privacy-policy">Privacy &amp; Cookie Policy</a>
         <button class="footer__consent-link" onclick="window.CookieConsent && window.CookieConsent.openPreferences()">Cookie Settings</button>
