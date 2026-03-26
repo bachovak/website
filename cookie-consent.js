@@ -63,7 +63,7 @@
       if (ct) ct.style.removeProperty('display');
     });
 
-    // Inject Kit embed script — Kit reads data-uid to know which form to render
+    // Inject Kit embed script for the Resources page form
     var script = document.createElement('script');
     script.id  = 'kit-embed-script';
     script.setAttribute('data-uid', 'bb35d512cc');
@@ -74,6 +74,15 @@
       container.appendChild(script);
     } else {
       document.body.appendChild(script);
+    }
+
+    // Inject ck.5.js to activate the seva-form on the agent article page
+    if (!document.getElementById('kit-ckjs-script')) {
+      var ckjs = document.createElement('script');
+      ckjs.id  = 'kit-ckjs-script';
+      ckjs.src = 'https://f.convertkit.com/ckjs/ck.5.js';
+      ckjs.async = true;
+      document.body.appendChild(ckjs);
     }
   }
 
