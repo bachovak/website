@@ -638,6 +638,15 @@ ul { list-style: none; }
   line-height: 1.6;
 }
 
+.service-card__always-included {
+  font-size: 0.9rem;
+  color: var(--colour-text-muted);
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  line-height: 1.6;
+}
+
 .service-card__body h4 {
   font-family: var(--font-body);
   font-size: 0.95rem;
