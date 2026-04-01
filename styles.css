@@ -631,6 +631,13 @@ ul { list-style: none; }
   color: var(--colour-text-muted);
 }
 
+.service-card__desc {
+  font-size: 0.95rem;
+  color: var(--colour-text-muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
 .service-card__body h4 {
   font-family: var(--font-body);
   font-size: 0.95rem;
