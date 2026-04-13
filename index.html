@@ -1507,7 +1507,7 @@ CALCULATE (
         <div class="container container--narrow">
           <div class="article-body">
 
-            <p>I&rsquo;ve spent the last few weeks building something I kept wishing already existed. I&rsquo;m calling it the Power BI DAX Agent, and I&rsquo;ve made it free for anyone to use.</p>
+            <p>Three months ago I had never written a Python agent in my life. I knew DAX, data modelling, and governance &mdash; but agentic AI was completely new territory. I built this anyway, because I kept seeing a problem I wanted to solve. I&rsquo;m calling it the Power BI DAX Agent, and I&rsquo;ve made it free for anyone to use.</p>
             <p>This article explains why I built it, who it is designed for, how it compares to other AI-powered approaches to Power BI development, and where it&rsquo;s heading next.</p>
 
             <h2>Why I Built This</h2>
@@ -1516,14 +1516,14 @@ CALCULATE (
             <p>These people face a specific and under-discussed problem: <strong>they need to change things without breaking things.</strong></p>
             <p>They&rsquo;re not looking for ways to build faster. They&rsquo;re worried about what happens when they rename a column that fifteen measures depend on. They don&rsquo;t know if the measure they&rsquo;re about to create already exists under a slightly different name. They have no way of knowing the downstream impact of a change before they make it.</p>
             <p>Existing AI tools for Power BI don&rsquo;t really solve this problem. Most of them are designed to make senior developers faster &mdash; which is valuable, but it&rsquo;s not the same thing.</p>
-            <p>So I built something designed around a different principle: <strong>confidence over speed.</strong></p>
+            <p>So I built something designed around a different principle: <strong>confidence over speed.</strong> I built it with Claude Code, drawing on ideas from Kalina Ivanova and Kurt Buhler&rsquo;s work in the Power BI agentic development space.</p>
 
             <h2>What the Agent Actually Does</h2>
             <p>The Power BI DAX Agent is a locally-running web application. You open it in your browser, point it at your Power BI model file, and describe the measure you need in plain English. The agent generates validated DAX using only your actual tables and columns, checks for duplicates, and asks for your approval before saving anything.</p>
             <p>Here is the end-to-end flow:</p>
 
             <p><strong>1. Load your model with a sanitisation review</strong></p>
-            <p>Before anything reaches the AI, the agent scans your model file and strips sensitive metadata &mdash; database connection strings, file paths, email addresses, SharePoint URLs, and similar content. You see exactly what was found and what was masked. Nothing proceeds until you explicitly approve the clean version.</p>
+            <p>Before anything reaches the AI, the agent scans your model file and strips sensitive metadata &mdash; database connection strings, file paths, email addresses, SharePoint URLs, and similar content. You see exactly what was found and what was masked. Nothing proceeds until you explicitly approve the clean version. The idea for this gate came from Kalina Ivanova, who built a standalone PowerShell script to scrub sensitive metadata from TMDL files before sharing with AI tools. I took that concept and embedded it directly into the agent workflow. Kurt Buhler&rsquo;s power-bi-agentic-development repository also shaped how I thought about safe agentic patterns for Power BI more broadly.</p>
 
             <img src="images/pbi-agent/sanitisation-review.png" alt="Model Sanitisation Review screen showing 105 sensitive items found and masked before loading" class="article-image">
             <p class="article-image__caption">The sanitisation review screen — you see exactly what was found and masked before anything is loaded into the agent.</p>
@@ -1550,7 +1550,7 @@ CALCULATE (
             <p>Every approved measure is saved to a persistent library with the original request, the DAX, how many attempts it took to generate, and a timestamp. Over time this becomes a searchable record of every measure your team has generated, which also feeds back into the duplicate detection.</p>
 
             <h2>Who This Is For</h2>
-            <p>The primary audience is anyone managing Power BI in a company of roughly 5 to 500 employees &mdash; particularly in EU markets where data governance and GDPR compliance are genuine daily concerns, not theoretical ones.</p>
+            <p>The primary audience is anyone managing Power BI &mdash; particularly in EU markets where data governance and GDPR compliance are genuine daily concerns, not theoretical ones.</p>
             <p>More specifically, it is designed for:</p>
             <ul>
               <li><strong>The solo BI person</strong> who owns the Power BI environment and needs a reliable assistant that works within guardrails, not around them</li>
