@@ -1274,6 +1274,15 @@ ul { list-style: none; }
   border-top: 1px solid var(--colour-border);
 }
 
+/* Small attribution/source note at the bottom of article pages */
+.article-footnote {
+  font-size: 0.875rem;
+  color: var(--colour-text-muted);
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--colour-border);
+}
+
 /* ===== BOOKING BOX ===== */
 .booking-box {
   background: var(--colour-card);

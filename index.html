@@ -672,7 +672,95 @@
               <a href="#article-pbi-agent" class="link--arrow">Read more &rarr;</a>
             </article>
 
+            <article class="article-card">
+              <span class="badge badge--category">Free Tool</span>
+              <h3 class="article-card__title">Microsoft Fabric Tenant Settings</h3>
+              <p class="article-card__desc">A live reference table of all 140+ Fabric tenant settings with default values, governance recommendations, and impact ratings. Updated automatically.</p>
+              <a href="#article-fabric-tenant-settings" class="link--arrow">Read more &rarr;</a>
+            </article>
+
           </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== PAGE: ARTICLE — FABRIC TENANT SETTINGS ==================== -->
+    <div class="page" id="page-article-fabric-tenant-settings">
+
+      <section class="page-header">
+        <div class="container container--narrow">
+          <a href="#tools" class="article-back">&larr; Back to Tools</a>
+          <span class="badge badge--category">Free Tool</span>
+          <h1 class="page-header__title">Microsoft Fabric Tenant Settings: A Governance Reference Tool</h1>
+          <p class="page-header__intro">Know what your tenant settings are doing &mdash; and what they should be doing.</p>
+          <p class="page-header__meta"><time datetime="2026-04">April 2026</time></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+          <div class="article-body">
+
+            <p>When you activate Microsoft Fabric, your tenant comes pre-configured with over 140 settings. Some are switched on by default. Others are off. Most administrators never review them systematically &mdash; and that gap quietly creates real risk: data accessible to the wrong people, sensitivity labels not propagating, guest users invited without governance, Copilot sending data outside your EU boundary.</p>
+            <p>This tool gives you a clear, structured view of every tenant setting, what it does by default, what best practice looks like, and how much it matters if you leave it unchanged.</p>
+
+            <h2>How to use it</h2>
+            <p>Use the search and filters to focus on what matters most. Start with <strong>Requires Adjustment: Yes</strong> and <strong>Impact: High</strong> &mdash; that&rsquo;s your priority list. You can also download the full table as a formatted Excel file to share internally or use in a governance review.</p>
+            <p>The table covers all current Microsoft Fabric tenant settings across every category &mdash; from information protection and export controls to Git integration, Copilot, and OneLake. Each row shows:</p>
+            <ul>
+              <li><strong>Default setting</strong> &mdash; what Microsoft configures out of the box</li>
+              <li><strong>Recommended setting</strong> &mdash; what a well-governed tenant should have</li>
+              <li><strong>Requires adjustment</strong> &mdash; whether the default needs to change</li>
+              <li><strong>Impact</strong> &mdash; how much risk you carry by leaving the default in place (High&nbsp;/&nbsp;Medium&nbsp;/&nbsp;Low)</li>
+            </ul>
+            <p>The table is updated automatically whenever Microsoft changes the documentation, so you&rsquo;re always working from a current baseline.</p>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt">
+        <div class="container">
+          <iframe
+            src="https://fabric.kristinabachova.com"
+            title="Microsoft Fabric Tenant Settings Reference Tool"
+            width="100%"
+            style="display: block; height: 800px; min-height: 800px; border: 1px solid var(--colour-border); border-radius: var(--radius);"
+            loading="lazy">
+            <p>Your browser does not support embedded content.
+              <a href="https://fabric.kristinabachova.com" target="_blank" rel="noopener noreferrer">Open the tool in a new tab &rarr;</a>
+            </p>
+          </iframe>
+          <p style="margin-top: 10px; font-size: 0.875rem; color: var(--colour-text-muted);">
+            <a href="https://fabric.kristinabachova.com" target="_blank" rel="noopener noreferrer">Open the tool in a new tab &rarr;</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container--narrow">
+
+          <div class="article-body">
+            <h2>What this isn&rsquo;t</h2>
+            <p>This is a reference and starting point, not a one-size-fits-all prescription. The right configuration for your organisation depends on your industry, compliance requirements, licensing tier, and how mature your BI governance is. A manufacturing company with a single internal team has different needs from a healthcare group with external data sharing in scope.</p>
+          </div>
+
+          <div class="booking-box" style="margin-top: 48px;">
+            <h3 class="booking-box__title">Need a full tenant review?</h3>
+            <p class="cta-section__text">If you&rsquo;d like a structured assessment of your Fabric environment &mdash; not just settings, but data model governance, access controls, workspace structure, and operational health &mdash; that&rsquo;s exactly what a BI Health Check covers. Get in touch and we can talk through what&rsquo;s relevant for your organisation.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 8px;">
+              <a href="https://assessment.kristinabachova.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">BI Health Check</a>
+              <a href="#contact" class="btn btn--secondary">Get in touch</a>
+            </div>
+          </div>
+
+          <p class="article-footnote">Settings data is sourced from <a href="https://learn.microsoft.com/en-us/fabric/admin/tenant-settings-index" target="_blank" rel="noopener noreferrer">Microsoft Fabric documentation</a> and updated automatically when Microsoft releases changes.</p>
+
+          <div class="article-footer">
+            <a href="#tools" class="link--arrow">&larr; Back to all tools</a>
+          </div>
+
         </div>
       </section>
 
