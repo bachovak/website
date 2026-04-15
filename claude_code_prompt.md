@@ -62,7 +62,7 @@ Footer: dark background, same as nav. Short tagline, links to all pages, and a s
 - Full-width, dark background (`--colour-dark`). Text is white.
 - H1: **Kristina Bachová**
 - Subheading (smaller, muted white): **Power BI Specialist — Making BI Reliable, Scalable & Business-Trusted**
-- One-sentence value prop below that: *"I help companies turn messy BI into trusted, scalable reporting — fast."*
+- One-sentence value prop below that: *"I help companies turn messy BI into trusted, scalable reporting."*
 - One CTA button: **"Book a free discovery call"** — amber background, links to the Contact section. Rounded pill shape.
 - No background image needed. A subtle geometric pattern or a very faint grid texture is fine, or just solid dark. Keep it clean.
 
