@@ -86,16 +86,16 @@
     }
   }
 
-  /* Analytics stub — no GA currently; uncomment & configure when adding GA */
   function loadAnalytics() {
-    // var GA_ID = 'G-XXXXXXXXXX';
-    // if (document.getElementById('ga-script')) return;
-    // var s = document.createElement('script');
-    // s.id = 'ga-script'; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    // s.async = true; document.head.appendChild(s);
-    // window.dataLayer = window.dataLayer || [];
-    // function gtag(){dataLayer.push(arguments);}
-    // gtag('js', new Date()); gtag('config', GA_ID);
+    var GA_ID = 'G-X9MEK87E4M';
+    if (document.getElementById('ga-script')) return;
+    var s = document.createElement('script');
+    s.id = 'ga-script'; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    s.async = true; document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('js', new Date()); gtag('config', GA_ID);
   }
 
   function applyConsent(categories) {
@@ -110,7 +110,14 @@
   function init() {
     banner = document.getElementById('cookie-banner');
     modal  = document.getElementById('cookie-modal');
-    if (!banner) return; // safety guard
+
+    var consent = getConsent();
+
+    // On pages without a banner, silently apply any previously saved consent
+    if (!banner) {
+      if (consent) applyConsent(consent.categories);
+      return;
+    }
 
     /* Buttons that exist in multiple places use shared CSS classes */
     var acceptAllBtns = document.querySelectorAll('.js-cookie-accept-all');
@@ -120,7 +127,6 @@
     var closePrefBtn  = document.getElementById('cookie-close-prefs');
 
     /* ─── Check stored consent ─── */
-    var consent = getConsent();
     if (consent) {
       applyConsent(consent.categories);
     } else {
