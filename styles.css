@@ -506,6 +506,18 @@ ul { list-style: none; }
   color: var(--colour-mid);
 }
 
+.badge--featured {
+  background: rgba(91,141,184,0.22);
+  color: #fff;
+  border: 1px solid rgba(91,141,184,0.7);
+  font-size: 0.72rem;
+}
+.badge--featured a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .package-card__name {
   font-size: 1.15rem;
   margin-bottom: 12px;
