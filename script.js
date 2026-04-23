@@ -54,7 +54,8 @@
     if (target) target.classList.add('active');
 
     // Update nav active state
-    var navPage = page.startsWith('article-') ? 'resources' : page;
+    var toolArticles = ['article-pbi-agent', 'article-fabric-tenant-settings'];
+    var navPage = toolArticles.includes(page) ? 'tools' : page.startsWith('article-') ? 'resources' : page;
     document.querySelectorAll('.nav__link').forEach(function (link) {
       link.classList.remove('active');
       if (link.getAttribute('data-page') === navPage) {
