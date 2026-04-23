@@ -96,6 +96,14 @@
     function gtag(){dataLayer.push(arguments);}
     window.gtag = gtag;
     gtag('js', new Date()); gtag('config', GA_ID);
+
+    // Track SPA hash navigation as distinct page_view events
+    window.addEventListener('hashchange', function () {
+      gtag('event', 'page_view', {
+        page_location: window.location.href,
+        page_path:     window.location.pathname + window.location.hash
+      });
+    });
   }
 
   function applyConsent(categories) {
