@@ -54,6 +54,13 @@
   function loadKit() {
     if (document.getElementById('kit-embed-script')) return;
 
+    // Only inject Kit on pages that have a form container; avoids sticky-bar
+    // appearing on standalone pages (e.g. hotel-bi-portfolio.html) that share
+    // cookie-consent.js but have no Kit form of their own.
+    var container = document.getElementById('kit-form-container');
+    var containerAgent = document.getElementById('kit-form-container-agent');
+    if (!container && !containerAgent) return;
+
     // Reveal containers, hide placeholders (handles all Kit form instances on the page)
     [['kit-consent-placeholder', 'kit-form-container'],
      ['kit-consent-placeholder-agent', 'kit-form-container-agent']].forEach(function (pair) {
@@ -69,11 +76,10 @@
     script.setAttribute('data-uid', 'bb35d512cc');
     script.src   = 'https://kristina-bachova.kit.com/bb35d512cc/index.js';
     script.async = true;
-    var container = document.getElementById('kit-form-container');
     if (container) {
       container.appendChild(script);
     } else {
-      document.body.appendChild(script);
+      containerAgent.appendChild(script);
     }
 
     // Inject ck.5.js to activate the seva-form on the agent article page
