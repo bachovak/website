@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role-Based Page Navigation in Power BI — Kristina Bachová</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:       #1A3D5C;
+    --primary:    #2A5F8F;
+    --accent:     #C2603A;
+    --mid:        #5B8DB8;
+    --bg:         #F4F1EB;
+    --card:       #FFFFFF;
+    --text:       #2A3A4A;
+    --muted:      #6A7E90;
+    --border:     #D9D4C8;
+    --green:      #16A34A;
+    --warning:    #D4901A;
+    --code-bg:    #EAE6DF;
+    --accent-light: #F5EDE8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--dark);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--accent);
+  }
+  .site-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .site-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .site-logo span { color: var(--accent); }
+  .header-nav a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 2rem;
+    transition: color 0.2s;
+  }
+  .header-nav a:hover { color: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--dark);
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(90,141,184,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+  }
+  .tag-primary { background: var(--accent); color: #fff; }
+  .tag-outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+  .hero-date {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.83rem;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--mid);
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { background: #a8502f; transform: translateY(-1px); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.8); }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  /* ── SECURITY CALLOUT ── */
+  .security-banner {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 2.5rem 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .security-banner strong {
+    display: block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .security-banner p { font-size: 0.95rem; color: var(--text); margin-bottom: 0.5rem; }
+  .security-banner p:last-child { margin-bottom: 0; }
+
+  /* ── MAIN LAYOUT ── */
+  .article-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .article-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+    .sidebar { order: -1; }
+  }
+
+  /* ── PROSE ── */
+  .prose h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 2.5rem 0 0.9rem;
+    padding-top: 0.5rem;
+    border-top: 2px solid var(--border);
+  }
+  .prose h2:first-child { border-top: none; margin-top: 0; }
+  .prose h3 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 1.8rem 0 0.6rem;
+  }
+  .prose p { margin-bottom: 1.1rem; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+  .prose a:hover { color: var(--accent); }
+  .prose strong { font-weight: 700; color: var(--dark); }
+
+  /* ── ARCHITECTURE LIST ── */
+  .arch-list {
+    list-style: none;
+    margin: 1.2rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .arch-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.97rem;
+    padding: 0.75rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .arch-list li:hover {
+    border-color: var(--mid);
+    box-shadow: 0 2px 8px rgba(42,95,143,0.08);
+  }
+  .arch-arrow {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: var(--dark);
+    border-radius: 8px;
+    margin: 1.2rem 0 1.5rem;
+    overflow: hidden;
+  }
+  .code-label {
+    background: rgba(255,255,255,0.05);
+    padding: 0.5rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .code-block pre {
+    padding: 1.2rem 1.3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: #e2e8f0;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .code-comment { color: #64748b; }
+  .code-keyword { color: #93c5fd; }
+  .code-string { color: #86efac; }
+  .code-function { color: #fbbf24; }
+  .code-number { color: #f9a8d4; }
+
+  /* ── VIDEO EMBED ── */
+  .video-wrap {
+    margin: 2rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    background: var(--dark);
+    position: relative;
+  }
+  .video-wrap video {
+    width: 100%;
+    display: block;
+  }
+  .video-caption {
+    background: var(--dark);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.78rem;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0 1.5rem;
+    font-size: 0.9rem;
+  }
+  .compare-table th {
+    background: var(--dark);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+  .compare-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare-table tr:nth-child(even) td { background: rgba(244,241,235,0.5); }
+  .compare-table td:first-child { font-weight: 600; color: var(--dark); }
+  .compare-table .good { color: var(--green); font-weight: 600; }
+  .compare-table .warn { color: var(--warning); font-weight: 600; }
+
+  /* ── STEP CARDS ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.2rem 0 1.5rem;
+  }
+  .step-card {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 1rem;
+    align-items: start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem 1rem 1rem;
+  }
+  .step-num {
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-content h4 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.3rem;
+    font-size: 0.97rem;
+  }
+  .step-content p { font-size: 0.9rem; color: var(--muted); margin: 0; line-height: 1.55; }
+
+  /* ── LIMITATION CARDS ── */
+  .limitation {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warning);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 0.75rem;
+    font-size: 0.93rem;
+  }
+  .limitation-icon { flex-shrink: 0; font-size: 1rem; margin-top: 0.1rem; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { position: sticky; top: 80px; }
+  .sidebar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .sidebar-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .toc-list a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: block;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .toc-list a:hover {
+    color: var(--primary);
+    background: var(--bg);
+    border-left-color: var(--accent);
+    padding-left: 0.75rem;
+  }
+  .github-card {
+    background: var(--dark);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .github-card h4 {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .github-card p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .github-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    background: rgba(255,255,255,0.08);
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: background 0.2s;
+    word-break: break-all;
+  }
+  .github-link:hover { background: rgba(255,255,255,0.14); }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .skill-tag {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* ── FOOTER ── */
+  .article-footer {
+    background: var(--dark);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .article-footer p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .article-footer a { color: var(--mid); text-decoration: none; }
+  .article-footer a:hover { color: #fff; }
+  .footer-cta {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner > * {
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://kristinabachova.com" class="site-logo">Kristina <span>Bachová</span></a>
+    <nav class="header-nav">
+      <a href="https://kristinabachova.com">Home</a>
+      <a href="https://kristinabachova.com/#services">Services</a>
+      <a href="https://kristinabachova.com/#articles">Articles</a>
+      <a href="https://assessment.kristinabachova.com">BI Health Check</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span class="tag tag-primary">Power BI</span>
+      <span class="tag tag-outline">RLS</span>
+      <span class="tag tag-outline">DAX</span>
+      <span class="tag tag-outline">Governance</span>
+      <span class="hero-date">May 2025</span>
+    </div>
+    <h1>Role-Based Page Navigation in Power BI — <em>without native support</em></h1>
+    <p class="hero-subtitle">A client wanted different users to see different report pages based on their role. Power BI has no built-in feature for this. Here's how I built it anyway — and what you need to know before you try.</p>
+    <div class="hero-links">
+      <a href="https://github.com/bachovak/PBI_role-based_Page_Visibility" class="btn btn-accent" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7457334544321454080/" class="btn btn-ghost" target="_blank">LinkedIn Discussion</a>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN ARTICLE -->
+<div class="article-wrap">
+  <article class="prose">
+
+    <!-- SECURITY BANNER -->
+    <div class="security-banner">
+      <strong>⚠ Critical Security Notice</strong>
+      <p>UI-level RLS — greyed-out buttons and hidden page tabs — is a <strong>navigation control only</strong>. It is not a security measure. A user who knows the page URL can bypass it entirely.</p>
+      <p>This pattern must always be combined with <strong>data-level RLS on your fact tables</strong> and <strong>strict workspace access controls</strong>. Both are covered in this article.</p>
+    </div>
+
+    <!-- THE BRIEF -->
+    <h2 id="brief">The Brief</h2>
+    <p>A client running a multi-department Power BI environment came to me with a straightforward request: Finance should see Finance pages. Operations should see Operations pages. HR should see HR pages. Nobody should see pages that aren't theirs.</p>
+    <p>Simple in concept. The problem: <strong>Power BI has no native page-level security feature</strong>. You cannot assign visibility of a page to an RLS role the way you assign data filters. Pages are visible to everyone who has access to the report — full stop.</p>
+    <p>What Power BI does have is enough building blocks to construct a solid workaround. Here's how I built it.</p>
+
+    <!-- VIDEO -->
+    <div class="video-wrap">
+      <video controls playsinline poster="">
+        <source src="pbi_role_based_page_visibility.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-caption">Walkthrough: role-based navigation in action — Finance, Operations, and HR roles each seeing different active buttons</div>
+    </div>
+
+    <!-- THE ARCHITECTURE -->
+    <h2 id="architecture">The Architecture</h2>
+    <p>The solution uses five components working together:</p>
+
+    <ul class="arch-list">
+      <li><span class="arch-arrow">→</span><div><strong>PageAccess table</strong> — a mapping table that defines which role can access which page, using a simple RoleName / PageKey structure</div></li>
+      <li><span class="arch-arrow">→</span><div><strong>RLS roles</strong> — one per department, each filtering the PageAccess table to only their rows using a DAX row filter</div></li>
+      <li><span class="arch-arrow">→</span><div><strong>Navigate measures</strong> — DAX measures that return the target page name when the role has access, or BLANK() when it doesn't</div></li>
+      <li><span class="arch-arrow">→</span><div><strong>Colour measures</strong> — DAX measures that return brand blue for active buttons and light grey for inactive ones</div></li>
+      <li><span class="arch-arrow">→</span><div><strong>Blank buttons on a Home page</strong> — individual buttons with destination and fill colour both driven by the measures above via conditional formatting (fx)</div></li>
+    </ul>
+
+    <p>The result: active buttons navigate correctly. Inactive buttons appear greyed-out and do nothing when clicked. All destination pages are hidden from the tab bar — the Home page is the only entry point.</p>
+
+    <!-- ONE THING TO KNOW FIRST -->
+    <h2 id="navigator">One Thing to Know Before You Start</h2>
+    <p>Power BI has a built-in <strong>Page Navigator</strong> button (Insert → Buttons → Page Navigation) that auto-generates a full button set for your report. It looks like exactly what you need.</p>
+    <p>It isn't. The Page Navigator widget is pre-packaged with very limited customisation. You cannot drive individual button destinations or fill colours via DAX measures — which is the entire mechanism this solution relies on. <strong>Use Blank buttons instead, one per page.</strong></p>
+
+    <!-- THE DAX -->
+    <h2 id="dax">The DAX</h2>
+
+    <h3>PageAccess Table</h3>
+    <div class="code-block">
+      <div class="code-label">DAX — Calculated Table</div>
+      <pre><span class="code-function">PageAccess</span> <span class="code-keyword">=</span>
+<span class="code-function">DATATABLE</span>(
+    <span class="code-string">"RoleName"</span>, STRING,
+    <span class="code-string">"PageKey"</span>,  STRING,
+    <span class="code-string">"HasAccess"</span>, INTEGER,
+    {
+        { <span class="code-string">"Finance"</span>,    <span class="code-string">"finance_detail"</span>,    <span class="code-number">1</span> },
+        { <span class="code-string">"Finance"</span>,    <span class="code-string">"executive_summary"</span>, <span class="code-number">1</span> },
+        { <span class="code-string">"Operations"</span>, <span class="code-string">"ops_detail"</span>,         <span class="code-number">1</span> },
+        { <span class="code-string">"HR"</span>,         <span class="code-string">"hr_detail"</span>,          <span class="code-number">1</span> }
+    }
+)</pre>
+    </div>
+
+    <h3>Navigate Measures</h3>
+    <p>These return the exact page name when the role has access, or BLANK() when it doesn't. The button destination is set to BLANK() which disables the action entirely.</p>
+    <div class="code-block">
+      <div class="code-label">DAX — Navigate Finance</div>
+      <pre><span class="code-function">Navigate Finance</span> <span class="code-keyword">=</span>
+<span class="code-function">IF</span>(
+    <span class="code-function">COUNTROWS</span>(
+        <span class="code-function">FILTER</span>(PageAccess, PageAccess[PageKey] <span class="code-keyword">=</span> <span class="code-string">"finance_detail"</span>)
+    ) <span class="code-keyword">&gt;</span> <span class="code-number">0</span>,
+    <span class="code-string">"Finance Detail"</span>,
+    <span class="code-function">BLANK</span>()
+)</pre>
+    </div>
+    <p>Repeat for <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;background:var(--code-bg);padding:0.1em 0.4em;border-radius:4px;">Navigate Executive Summary</code>, <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;background:var(--code-bg);padding:0.1em 0.4em;border-radius:4px;">Navigate Operations</code>, and <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;background:var(--code-bg);padding:0.1em 0.4em;border-radius:4px;">Navigate HR</code>, swapping the PageKey and return value.</p>
+
+    <h3>Colour Measures</h3>
+    <p>Two sets: fill colour and text colour. Active state is brand blue with white text. Inactive state is light grey with faded grey text.</p>
+    <div class="code-block">
+      <div class="code-label">DAX — Colour Finance (fill)</div>
+      <pre><span class="code-function">Colour Finance</span> <span class="code-keyword">=</span>
+<span class="code-function">IF</span>(
+    <span class="code-function">COUNTROWS</span>(
+        <span class="code-function">FILTER</span>(PageAccess, PageAccess[PageKey] <span class="code-keyword">=</span> <span class="code-string">"finance_detail"</span>)
+    ) <span class="code-keyword">&gt;</span> <span class="code-number">0</span>,
+    <span class="code-string">"#2A5F8F"</span>, <span class="code-comment">-- active: brand blue</span>
+    <span class="code-string">"#E0E0E0"</span>  <span class="code-comment">-- inactive: light grey</span>
+)</pre>
+    </div>
+    <div class="code-block">
+      <div class="code-label">DAX — Text Colour Finance (font)</div>
+      <pre><span class="code-function">Text Colour Finance</span> <span class="code-keyword">=</span>
+<span class="code-function">IF</span>(
+    <span class="code-function">COUNTROWS</span>(
+        <span class="code-function">FILTER</span>(PageAccess, PageAccess[PageKey] <span class="code-keyword">=</span> <span class="code-string">"finance_detail"</span>)
+    ) <span class="code-keyword">&gt;</span> <span class="code-number">0</span>,
+    <span class="code-string">"#FFFFFF"</span>, <span class="code-comment">-- active: white</span>
+    <span class="code-string">"#BBBBBB"</span>  <span class="code-comment">-- inactive: faded grey</span>
+)</pre>
+    </div>
+
+    <!-- WIRING UP THE BUTTONS -->
+    <h2 id="buttons">Wiring Up the Buttons</h2>
+    <p>For each button on the Home page:</p>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Insert → Buttons → Blank</h4>
+          <p>Do not use the Page Navigation widget. Insert individual blank buttons and set the label text manually in the Format pane.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Toggle Action on → Page navigation → fx on Destination</h4>
+          <p>Click the fx icon next to Destination, set Format style to Field value, and select the corresponding Navigate measure.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Button style → Fill → fx</h4>
+          <p>Select the corresponding Colour measure. This controls the button background colour based on the active RLS role.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Button style → Font colour → fx</h4>
+          <p>Select the corresponding Text Colour measure so the label text also reflects the active/inactive state.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Hide all destination pages from the tab bar</h4>
+          <p>Right-click each destination page tab → Hide page. Leave Home visible. Users who bypass buttons via the tab bar would undermine the entire pattern.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTERPRISE DEPLOYMENT -->
+    <h2 id="enterprise">Enterprise Deployment — USERPRINCIPALNAME()</h2>
+    <p>The static role approach above works well for small teams. For production environments, the better pattern is <strong>dynamic RLS with a single role</strong> driven by a UserMapping table fed from your identity infrastructure.</p>
+    <p>Instead of assigning users to multiple roles in the Power BI Service, you create one <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;background:var(--code-bg);padding:0.1em 0.4em;border-radius:4px;">DynamicAccess</code> role with a single filter:</p>
+
+    <div class="code-block">
+      <div class="code-label">DAX — DynamicAccess role filter on UserMapping table</div>
+      <pre>[UserEmail] <span class="code-keyword">=</span> <span class="code-function">USERPRINCIPALNAME</span>()</pre>
+    </div>
+
+    <p>The Navigate measures are updated to look up the user's role dynamically:</p>
+
+    <div class="code-block">
+      <div class="code-label">DAX — Navigate Finance (dynamic)</div>
+      <pre><span class="code-function">Navigate Finance</span> <span class="code-keyword">=</span>
+<span class="code-keyword">VAR</span> CurrentRole <span class="code-keyword">=</span>
+    <span class="code-function">CALCULATE</span>(
+        <span class="code-function">SELECTEDVALUE</span>(UserMapping[RoleName]),
+        <span class="code-function">FILTER</span>(UserMapping, UserMapping[UserEmail] <span class="code-keyword">=</span> <span class="code-function">USERPRINCIPALNAME</span>())
+    )
+<span class="code-keyword">VAR</span> HasAccess <span class="code-keyword">=</span>
+    <span class="code-function">COUNTROWS</span>(
+        <span class="code-function">FILTER</span>(
+            PageAccess,
+            PageAccess[RoleName] <span class="code-keyword">=</span> CurrentRole <span class="code-keyword">&&</span>
+            PageAccess[PageKey] <span class="code-keyword">=</span> <span class="code-string">"finance_detail"</span>
+        )
+    )
+<span class="code-keyword">RETURN</span> <span class="code-function">IF</span>(HasAccess <span class="code-keyword">&gt;</span> <span class="code-number">0</span>, <span class="code-string">"Finance Detail"</span>, <span class="code-function">BLANK</span>())</pre>
+    </div>
+
+    <h3>Where the UserMapping Table Comes From</h3>
+    <p>In practice the UserMapping table is never hardcoded in Power BI. It comes from systems that already own this data:</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>Source</th><th>How it reaches Power BI</th><th>Best for</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Azure AD / Entra ID</td><td>Microsoft Graph API sync to warehouse, or Azure AD connector in Power Query</td><td>Microsoft-first enterprises</td></tr>
+        <tr><td>HR System (Workday, SAP)</td><td>ETL into data warehouse as dim_employee</td><td>Department-based access</td></tr>
+        <tr><td>Dedicated security table in warehouse</td><td>Standard connector — same as any other table</td><td>Best audit trail</td></tr>
+        <tr><td>IAM platform (Okta, SailPoint)</td><td>Pushed to data warehouse, read by Power BI</td><td>Enterprise-grade governance</td></tr>
+      </tbody>
+    </table>
+
+    <p>The governance principle: <strong>whoever owns the UserMapping table owns access to the report.</strong> That should be IT or the data team — not the report author.</p>
+
+    <!-- LIMITATIONS -->
+    <h2 id="limitations">Limitations</h2>
+
+    <div class="limitation">
+      <span class="limitation-icon">⚠️</span>
+      <div><strong>Buttons are greyed out, not hidden.</strong> Users can see all buttons and know other pages exist. If complete concealment is required, separate reports per audience is the right answer — not this pattern.</div>
+    </div>
+    <div class="limitation">
+      <span class="limitation-icon">⚠️</span>
+      <div><strong>This is UX, not security.</strong> A user who knows the page URL can still navigate directly. Data-level RLS on your fact tables is mandatory alongside this pattern.</div>
+    </div>
+    <div class="limitation">
+      <span class="limitation-icon">⚠️</span>
+      <div><strong>Page name strings must match exactly.</strong> If you rename a page, update the corresponding Navigate measure. A single character difference will silently break navigation.</div>
+    </div>
+    <div class="limitation">
+      <span class="limitation-icon">⚠️</span>
+      <div><strong>Test in your embedding context.</strong> This pattern works in Power BI Desktop and the Service. Behaviour in embedded scenarios varies — always verify before deployment.</div>
+    </div>
+
+    <!-- GITHUB -->
+    <h2 id="github">Sample File & Full Guide</h2>
+    <p>The full step-by-step guide — covering static RLS for this exercise and dynamic RLS with USERPRINCIPALNAME() for enterprise deployment — is available on GitHub along with the sample PBIX file used in the walkthrough above.</p>
+    <p><a href="https://github.com/bachovak/PBI_role-based_Page_Visibility" target="_blank">github.com/bachovak/PBI_role-based_Page_Visibility</a></p>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <h4>In this article</h4>
+      <ul class="toc-list">
+        <li><a href="#brief">The Brief</a></li>
+        <li><a href="#architecture">The Architecture</a></li>
+        <li><a href="#navigator">Page Navigator Warning</a></li>
+        <li><a href="#dax">The DAX</a></li>
+        <li><a href="#buttons">Wiring Up the Buttons</a></li>
+        <li><a href="#enterprise">Enterprise Deployment</a></li>
+        <li><a href="#limitations">Limitations</a></li>
+        <li><a href="#github">Sample File & Guide</a></li>
+      </ul>
+    </div>
+
+    <div class="github-card">
+      <h4>GitHub Repository</h4>
+      <p>Sample PBIX + full step-by-step guide including enterprise dynamic RLS pattern.</p>
+      <a href="https://github.com/bachovak/PBI_role-based_Page_Visibility" class="github-link" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        bachovak/PBI_role-based_Page_Visibility
+      </a>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Topics covered</h4>
+      <div class="tag-list">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">RLS</span>
+        <span class="skill-tag">DAX</span>
+        <span class="skill-tag">Data Governance</span>
+        <span class="skill-tag">USERPRINCIPALNAME</span>
+        <span class="skill-tag">Dynamic RLS</span>
+        <span class="skill-tag">Azure AD</span>
+        <span class="skill-tag">Navigation UX</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card" style="background: var(--dark); border-color: var(--dark);">
+      <h4 style="color: rgba(255,255,255,0.5); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; border-bottom-color: rgba(255,255,255,0.1);">BI Health Check</h4>
+      <p style="color: rgba(255,255,255,0.65); font-size:0.85rem; line-height:1.55; margin-bottom:1rem;">Not sure how well-governed your Power BI environment is? The free assessment takes 10 minutes.</p>
+      <a href="https://assessment.kristinabachova.com" class="btn btn-accent" style="display:block; text-align:center; font-size:0.82rem;" target="_blank">Take the free assessment</a>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="article-footer">
+  <span class="footer-cta">Working on a Power BI environment that needs governance?</span>
+  <p>I take on a small number of projects at a time. <a href="https://calendly.com/bachovak/30min">Book a 30-minute call</a> or <a href="mailto:info@kristinabachova.com">send me a message</a>.</p>
+  <p style="margin-top:1.5rem; font-size:0.78rem;">© <script>document.write(new Date().getFullYear())</script> Kristina Bachová · <a href="https://kristinabachova.com">kristinabachova.com</a></p>
+</footer>
+
+</body>
+</html>
